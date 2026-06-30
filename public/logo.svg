@@ -1,0 +1,17 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="12" fill="#0a0a0a"/>
+  <g stroke="#F5A623" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- mái tam giác (pediment) -->
+    <path d="M14 24 L32 13 L50 24 Z" fill="#F5A623" fill-opacity="0.15"/>
+    <!-- nền móng -->
+    <line x1="12" y1="48" x2="52" y2="48"/>
+    <line x1="15" y1="44" x2="49" y2="44"/>
+    <!-- 4 cột -->
+    <line x1="20" y1="27" x2="20" y2="44"/>
+    <line x1="28" y1="27" x2="28" y2="44"/>
+    <line x1="36" y1="27" x2="36" y2="44"/>
+    <line x1="44" y1="27" x2="44" y2="44"/>
+    <!-- xà ngang trên cột -->
+    <line x1="16" y1="27" x2="48" y2="27"/>
+  </g>
+</svg>

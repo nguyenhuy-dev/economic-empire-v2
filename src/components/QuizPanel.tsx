@@ -1,0 +1,100 @@
+import { useState, useEffect } from 'react'
+import { difficulties, quizQuestions } from '../data/quiz'
+import { fmt } from '../utils/calc'
+import { useGame } from '../state/GameContext'
+
+export default function QuizPanel() {
+  const { state, dispatch, viewTeamId } = useGame()
+  const active = state.teams.find((t) => t.id === viewTeamId)
+  const [diff, setDiff] = useState('medium')
+  const [picked, setPicked] = useState(null)
+
+  // đổi team / sang round mới -> reset lựa chọn
+  useEffect(() => {
+    setPicked(null)
+  }, [viewTeamId, state.round])
+
+  if (!active) return <section className="panel panel-pad"><p className="muted">Bạn chưa có đội.</p></section>
+  const counter = state.perRound[viewTeamId]
+  const locked = counter.quizDone || active.bankrupt || state.gameOver
+
+  const meta = difficulties.find((d) => d.id === diff)
+  const question = quizQuestions[diff][0]
+  const failReward = meta.failReward
+
+  function pick(i) {
+    if (locked || picked !== null) return
+    setPicked(i)
+    dispatch({
+      type: 'ANSWER_QUIZ',
+      difficulty: diff,
+      correct: i === question.answer,
+    })
+  }
+
+  return (
+    <section className="panel panel-pad">
+      <div className="section-head">
+        <span className="section-icon">🎯</span>
+        <h2>Phase 1 · Huy động vốn (Quiz)</h2>
+        <span className="tag">
+          {locked ? `${active.logo} đã trả lời` : `Đội ${active.logo}`}
+        </span>
+      </div>
+
+      <div className="diff-row">
+        {difficulties.map((d) => (
+          <button
+            key={d.id}
+            className={`diff-btn ${diff === d.id ? 'active' : ''}`}
+            style={{ '--dc': d.color }}
+            disabled={locked || picked !== null}
+            onClick={() => setDiff(d.id)}
+          >
+            <div className="dl">{d.label}</div>
+            <div className="dr">Đúng +{fmt(d.reward)}</div>
+          </button>
+        ))}
+      </div>
+
+      <div className="quiz-q">{question.q}</div>
+      <div className="quiz-opts">
+        {question.options.map((opt, i) => {
+          let cls = ''
+          if (picked !== null) {
+            if (i === question.answer) cls = 'correct'
+            else if (i === picked) cls = 'wrong'
+          }
+          return (
+            <button
+              key={i}
+              className={`quiz-opt ${cls}`}
+              disabled={locked || picked !== null}
+              onClick={() => pick(i)}
+            >
+              <span className="key">{String.fromCharCode(65 + i)}</span>
+              {opt}
+            </button>
+          )
+        })}
+      </div>
+
+      {locked ? (
+        <p className="quiz-note">
+          ✔ {active.name} đã huy động vốn round này. Chọn tập đoàn khác ở thanh điều khiển.
+        </p>
+      ) : (
+        <div className="quiz-reward">
+          <div className="reward-pill ok">
+            <div className="rv">+{fmt(meta.reward)}</div>
+            <div className="rl">Trả lời đúng</div>
+          </div>
+          <div className="reward-pill no">
+            <div className="rv">+{fmt(failReward)}</div>
+            <div className="rl">Trả lời sai</div>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
