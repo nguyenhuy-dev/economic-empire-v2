@@ -178,6 +178,23 @@ function Hero({ onStart }) {
         </p>
 
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <button
+            onClick={onStart}
+            style={{
+              padding: "14px 28px",
+              background: "#F5A623",
+              color: "#000",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: 1.5,
+              textTransform: "uppercase",
+              border: "none",
+              borderRadius: 3,
+              cursor: "pointer",
+            }}
+          >
+            Bắt Đầu Ván Đấu
+          </button>
           <div
             style={{
               display: "flex",
