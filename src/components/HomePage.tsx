@@ -8,6 +8,20 @@ import {
 } from "../data/game";
 import { tierMeta, buffs } from "../data/buffs";
 import { priceChange } from "../utils/calc";
+import { useState, useEffect } from "react";
+
+/* ── Responsive: true khi màn hình hẹp (mobile / tablet dọc) ── */
+function useIsMobile(breakpoint = 768) {
+  const [mobile, setMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth <= breakpoint,
+  );
+  useEffect(() => {
+    const onResize = () => setMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [breakpoint]);
+  return mobile;
+}
 
 /* ── Ticker ──────────────────────────────────────────── */
 function Ticker() {
@@ -34,15 +48,16 @@ function Ticker() {
 
 /* ── Nav ─────────────────────────────────────────────── */
 function Nav({ onStart }) {
+  const mobile = useIsMobile();
   return (
     <nav
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 32,
+        gap: mobile ? 16 : 32,
         height: 56,
         borderBottom: "1px solid #1f1f1f",
-        padding: "0 48px",
+        padding: mobile ? "0 16px" : "0 48px",
         position: "sticky",
         top: 0,
         background: "rgba(0,0,0,0.92)",
@@ -71,7 +86,7 @@ function Nav({ onStart }) {
           Đế Chế Kinh Tế
         </span>
       </div>
-      <div style={{ display: "flex", gap: 28, marginLeft: 20 }}>
+      <div style={{ display: mobile ? "none" : "flex", gap: 28, marginLeft: 20 }}>
         {[
           { label: "Thị Trường", id: "thi-truong" },
           { label: "Luật Chơi", id: "luat-choi" },
@@ -108,13 +123,14 @@ function Nav({ onStart }) {
 
 /* ── Hero ────────────────────────────────────────────── */
 function Hero({ onStart }) {
+  const mobile = useIsMobile();
   return (
     <section
       style={{
-        padding: "90px 48px 80px",
+        padding: mobile ? "48px 16px 56px" : "90px 48px 80px",
         display: "grid",
-        gridTemplateColumns: "1fr 420px",
-        gap: 40,
+        gridTemplateColumns: mobile ? "1fr" : "1fr 420px",
+        gap: mobile ? 28 : 40,
         alignItems: "center",
       }}
     >
@@ -305,8 +321,12 @@ function Hero({ onStart }) {
 
 /* ── Companies ───────────────────────────────────────── */
 function Companies() {
+  const mobile = useIsMobile();
   return (
-    <section id="thi-truong" style={{ padding: "60px 48px" }}>
+    <section
+      id="thi-truong"
+      style={{ padding: mobile ? "40px 16px" : "60px 48px" }}
+    >
       <div style={{ marginBottom: 32 }}>
         <div
           style={{
@@ -326,7 +346,7 @@ function Companies() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
           gap: 14,
         }}
       >
@@ -479,6 +499,7 @@ function Companies() {
 
 /* ── Game Flow ───────────────────────────────────────── */
 function GameFlow() {
+  const mobile = useIsMobile();
   const steps = [
     {
       num: "01",
@@ -497,7 +518,10 @@ function GameFlow() {
     },
   ];
   return (
-    <section id="luat-choi" style={{ padding: "60px 48px" }}>
+    <section
+      id="luat-choi"
+      style={{ padding: mobile ? "40px 16px" : "60px 48px" }}
+    >
       <div style={{ marginBottom: 36 }}>
         <div
           style={{
@@ -516,7 +540,7 @@ function GameFlow() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)",
           gap: 12,
           marginBottom: 16,
         }}
@@ -618,6 +642,7 @@ function GameFlow() {
 
 /* ── Buff Tiers ──────────────────────────────────────── */
 function BuffTiers() {
+  const mobile = useIsMobile();
   const patterns = [
     "repeating-linear-gradient(45deg, #1a2a1a 0px, #1a2a1a 4px, #0e1a0e 4px, #0e1a0e 10px)",
     "repeating-linear-gradient(45deg, #1a1a2a 0px, #1a1a2a 4px, #0e0e1a 4px, #0e0e1a 10px)",
@@ -625,7 +650,10 @@ function BuffTiers() {
     "repeating-linear-gradient(45deg, #2a1010 0px, #2a1010 4px, #1a0808 4px, #1a0808 10px)",
   ];
   return (
-    <section id="the-quyen-luc" style={{ padding: "60px 48px" }}>
+    <section
+      id="the-quyen-luc"
+      style={{ padding: mobile ? "40px 16px" : "60px 48px" }}
+    >
       <div
         style={{
           display: "flex",
@@ -673,7 +701,7 @@ function BuffTiers() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
           gap: 14,
         }}
       >
@@ -758,6 +786,7 @@ function BuffTiers() {
 
 /* ── Tax & Events ────────────────────────────────────── */
 function TaxAndEvents() {
+  const mobile = useIsMobile();
   const taxBands = [
     { rounds: "Vòng 1", rate: "5%", label: "Khởi động", color: "#22c55e" },
     { rounds: "Vòng 2", rate: "10%", label: "Mở rộng", color: "#a855f7" },
@@ -787,10 +816,10 @@ function TaxAndEvents() {
     <section
       id="su-kien"
       style={{
-        padding: "60px 48px",
+        padding: mobile ? "40px 16px" : "60px 48px",
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 32,
+        gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",
+        gap: mobile ? 24 : 32,
       }}
     >
       <div>
@@ -988,8 +1017,12 @@ function TaxAndEvents() {
 
 /* ── Win Conditions ──────────────────────────────────── */
 function WinConditions() {
+  const mobile = useIsMobile();
   return (
-    <section id="chien-thang" style={{ padding: "60px 48px" }}>
+    <section
+      id="chien-thang"
+      style={{ padding: mobile ? "40px 16px" : "60px 48px" }}
+    >
       <div
         style={{
           fontSize: 10,
@@ -1013,7 +1046,13 @@ function WinConditions() {
       >
         Hai Con Đường Lên Đỉnh
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: mobile ? "1fr" : "1fr 1fr",
+          gap: 14,
+        }}
+      >
         <div
           style={{
             background: "#0e0e0e",
@@ -1094,10 +1133,11 @@ function WinConditions() {
 
 /* ── CTA ─────────────────────────────────────────────── */
 function CTA({ onStart }) {
+  const mobile = useIsMobile();
   return (
     <section
       style={{
-        padding: "80px 48px 100px",
+        padding: mobile ? "56px 16px 64px" : "80px 48px 100px",
         textAlign: "center",
         borderTop: "1px solid #111",
       }}
@@ -1134,14 +1174,17 @@ function CTA({ onStart }) {
 
 /* ── Footer ──────────────────────────────────────────── */
 function Footer() {
+  const mobile = useIsMobile();
   return (
     <footer
       style={{
         borderTop: "1px solid #111",
-        padding: "20px 48px",
+        padding: mobile ? "16px 16px" : "20px 48px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 12,
       }}
     >
       <span

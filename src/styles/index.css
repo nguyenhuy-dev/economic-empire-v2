@@ -63,6 +63,24 @@ button {
   }
 }
 
+/* ---------- responsive: bàn cờ + setup trên màn hình hẹp ---------- */
+@media (max-width: 768px) {
+  .app { padding: 0 12px 40px; }
+  .header-bar { height: auto; gap: 12px; padding: 10px 0; flex-wrap: wrap; }
+  .header-nav { display: none; }
+  .header-stats { gap: 6px; margin-left: auto; }
+  .panel-pad { padding: 14px 14px; }
+  .control-bar { padding: 10px 12px; gap: 10px; }
+  .cb-status { margin-left: 0; width: 100%; flex-wrap: wrap; }
+  .cb-actions { flex-wrap: wrap; }
+  .lobby-panel { padding: 22px 18px; }
+}
+@media (max-width: 420px) {
+  .cb-stat { min-width: 52px; padding: 4px 7px; }
+  .cb-stat .v { font-size: 12px; }
+  .header-logo h1 { font-size: 13px; }
+}
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
