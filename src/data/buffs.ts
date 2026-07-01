@@ -1,5 +1,9 @@
-// Buff / Thẻ quyền lực — 4 tier. Giá 3B/gói
-export const BUFF_PRICE = 3
+// Buff / Thẻ quyền lực — 4 tier. Giá gói TĂNG DẦN theo round.
+export const BUFF_BASE_PRICE = 3 // giá ở round 1
+export const BUFF_PRICE_STEP = 2 // mỗi round tăng thêm
+export function buffPrice(round: number): number {
+  return BUFF_BASE_PRICE + Math.max(0, round - 1) * BUFF_PRICE_STEP
+}
 
 export const tierMeta = {
   uncommon: { label: 'Uncommon', color: '#22c55e', glow: 'rgba(34,197,94,.35)' },

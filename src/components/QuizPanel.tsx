@@ -8,10 +8,12 @@ export default function QuizPanel() {
   const active = state.teams.find((t) => t.id === viewTeamId)
   const [diff, setDiff] = useState('medium')
   const [picked, setPicked] = useState(null)
+  const [revealed, setRevealed] = useState(false) // câu hỏi chỉ hiện khi quản trò công bố
 
-  // đổi team / sang round mới -> reset lựa chọn
+  // đổi team / sang round mới -> ẩn câu hỏi & reset lựa chọn
   useEffect(() => {
     setPicked(null)
+    setRevealed(false)
   }, [viewTeamId, state.round])
 
   if (!active) return <section className="panel panel-pad"><p className="muted">Bạn chưa có đội.</p></section>
@@ -48,7 +50,7 @@ export default function QuizPanel() {
             key={d.id}
             className={`diff-btn ${diff === d.id ? 'active' : ''}`}
             style={{ '--dc': d.color }}
-            disabled={locked || picked !== null}
+            disabled={locked || picked !== null || revealed}
             onClick={() => setDiff(d.id)}
           >
             <div className="dl">{d.label}</div>
@@ -57,27 +59,47 @@ export default function QuizPanel() {
         ))}
       </div>
 
-      <div className="quiz-q">{question.q}</div>
-      <div className="quiz-opts">
-        {question.options.map((opt, i) => {
-          let cls = ''
-          if (picked !== null) {
-            if (i === question.answer) cls = 'correct'
-            else if (i === picked) cls = 'wrong'
-          }
-          return (
-            <button
-              key={i}
-              className={`quiz-opt ${cls}`}
-              disabled={locked || picked !== null}
-              onClick={() => pick(i)}
-            >
-              <span className="key">{String.fromCharCode(65 + i)}</span>
-              {opt}
-            </button>
-          )
-        })}
-      </div>
+      {/* Chưa công bố: ẩn câu hỏi, chờ quản trò bấm nút */}
+      {!locked && !revealed && (
+        <div style={{ marginTop: 14 }}>
+          <p className="quiz-note" style={{ marginBottom: 12 }}>
+            Chọn độ khó rồi bấm nút để công bố câu hỏi cho đội {active.logo}.
+          </p>
+          <button
+            className="btn-primary block"
+            onClick={() => setRevealed(true)}
+          >
+            🎬 Hiện câu hỏi · {meta.label}
+          </button>
+        </div>
+      )}
+
+      {/* Đã công bố: hiện câu hỏi + đáp án */}
+      {revealed && (
+        <>
+          <div className="quiz-q">{question.q}</div>
+          <div className="quiz-opts">
+            {question.options.map((opt, i) => {
+              let cls = ''
+              if (picked !== null) {
+                if (i === question.answer) cls = 'correct'
+                else if (i === picked) cls = 'wrong'
+              }
+              return (
+                <button
+                  key={i}
+                  className={`quiz-opt ${cls}`}
+                  disabled={locked || picked !== null}
+                  onClick={() => pick(i)}
+                >
+                  <span className="key">{String.fromCharCode(65 + i)}</span>
+                  {opt}
+                </button>
+              )
+            })}
+          </div>
+        </>
+      )}
 
       {locked ? (
         <p className="quiz-note">

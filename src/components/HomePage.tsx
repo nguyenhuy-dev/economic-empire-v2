@@ -712,7 +712,7 @@ function BuffTiers() {
             textAlign: "right",
           }}
         >
-          GIÁ CỐ ĐỊNH: 3B / GÓI · 3 GÓI / VÒNG
+          GIÁ TĂNG DẦN: 3 → 9B / GÓI · 3 GÓI / VÒNG
         </div>
       </div>
       <div

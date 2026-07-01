@@ -1,4 +1,4 @@
-import { buffs, buffShopOffer, tierMeta, BUFF_PRICE } from '../data/buffs'
+import { buffs, buffShopOffer, tierMeta, buffPrice } from '../data/buffs'
 import { fmt } from '../utils/calc'
 import { useGame } from '../state/GameContext'
 
@@ -8,9 +8,10 @@ export default function BuffShop() {
   const offered = buffShopOffer.map((id) => buffs.find((b) => b.id === id))
   if (!active) return <section className="panel panel-pad"><p className="muted">Bạn chưa có đội.</p></section>
   const counter = state.perRound[viewTeamId]
+  const price = buffPrice(state.round)
 
   const blocked =
-    counter.buffBought || active.bankrupt || state.gameOver || active.cash < BUFF_PRICE
+    counter.buffBought || active.bankrupt || state.gameOver || active.cash < price
 
   return (
     <section className="panel panel-pad">
@@ -20,7 +21,7 @@ export default function BuffShop() {
         <span className="tag">
           {counter.buffBought
             ? `${active.logo} đã mua buff`
-            : `3 gói · ${fmt(BUFF_PRICE)}/gói · ${active.logo}`}
+            : `3 gói · ${fmt(price)}/gói (round ${state.round}) · ${active.logo}`}
         </span>
       </div>
       <div className="buff-grid">
@@ -28,6 +29,7 @@ export default function BuffShop() {
           <BuffCard
             key={b.id}
             buff={b}
+            price={price}
             disabled={blocked}
             onBuy={() => dispatch({ type: 'BUY_BUFF', buffId: b.id })}
           />
@@ -37,7 +39,7 @@ export default function BuffShop() {
   )
 }
 
-function BuffCard({ buff, disabled, onBuy }) {
+function BuffCard({ buff, disabled, onBuy, price }) {
   const t = tierMeta[buff.tier]
   return (
     <div className="buff-card" style={{ '--bc': t.color, '--bg-glow': t.glow }}>
@@ -46,7 +48,7 @@ function BuffCard({ buff, disabled, onBuy }) {
       <div className="buff-name">{buff.name}</div>
       <div className="buff-effect">{buff.effect}</div>
       <button className="buff-buy" disabled={disabled} onClick={onBuy}>
-        Mua · {fmt(BUFF_PRICE)}
+        Mua · {fmt(price)}
       </button>
     </div>
   )

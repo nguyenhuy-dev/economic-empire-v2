@@ -89,6 +89,8 @@ export interface GameState {
   round: number
   phase: number
   phaseEndsAt: number | null
+  paused: boolean
+  pauseLeftMs: number | null
   activeTeamId: TeamId
   teams: Team[]
   companies: Company[]
@@ -108,6 +110,7 @@ export type GameAction =
   | { type: 'SET_PHASE'; phase: number }
   | { type: 'SET_ACTIVE_TEAM'; teamId: TeamId }
   | { type: 'NEXT_TURN' }
+  | { type: 'TOGGLE_PAUSE' }
   | { type: 'ANSWER_QUIZ'; difficulty: string; correct: boolean; teamId?: TeamId }
   | { type: 'BUY_SHARE'; companyId: CompanyId; teamId?: TeamId }
   | { type: 'SELL_SHARE'; companyId: CompanyId; teamId?: TeamId }

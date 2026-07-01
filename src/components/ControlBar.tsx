@@ -31,11 +31,25 @@ export default function ControlBar({ onSetup }: { onSetup?: () => void }) {
             className="cb-timer"
             style={{
               fontFamily: "'Space Mono', monospace", fontSize: 22, fontWeight: 700,
-              color: secondsLeft <= 10 ? 'var(--red)' : 'var(--text)',
+              color: state.paused ? 'var(--gold)' : secondsLeft <= 10 ? 'var(--red)' : 'var(--text)',
               minWidth: 72, textAlign: 'center',
             }}
           >
-            ⏱ {fmtTime(secondsLeft)}
+            {state.paused ? '⏸' : '⏱'} {fmtTime(secondsLeft)}
+          </span>
+        )}
+        {secondsLeft != null && !state.gameOver && (
+          <button
+            className="btn-ghost"
+            style={state.paused ? { color: '#000', background: 'var(--gold)' } : undefined}
+            onClick={() => dispatch({ type: 'TOGGLE_PAUSE' })}
+          >
+            {state.paused ? '▶ Tiếp tục' : '⏸ Dừng giờ'}
+          </button>
+        )}
+        {secondsLeft == null && !state.gameOver && (
+          <span className="cb-label" style={{ color: 'var(--gold)' }}>
+            ⏳ Hết Phase 3 · bấm “Kết thúc Round”
           </span>
         )}
       </div>

@@ -37,7 +37,7 @@ export function GameProvider({ children, numTeams = 4 }: GameProviderProps) {
   useEffect(() => {
     const iv = setInterval(() => {
       const cur = stateRef.current
-      if (!cur || cur.gameOver || !cur.phaseEndsAt) return
+      if (!cur || cur.gameOver || cur.paused || !cur.phaseEndsAt) return
       if (Date.now() >= cur.phaseEndsAt && sentDeadlineRef.current !== cur.phaseEndsAt) {
         sentDeadlineRef.current = cur.phaseEndsAt
         dispatch({ type: 'NEXT_TURN' })
@@ -53,10 +53,13 @@ export function GameProvider({ children, numTeams = 4 }: GameProviderProps) {
     return () => clearInterval(iv)
   }, [])
 
-  const secondsLeft =
-    state.phaseEndsAt && !state.gameOver
-      ? Math.max(0, Math.ceil((state.phaseEndsAt - now) / 1000))
-      : null
+  const secondsLeft = state.gameOver
+    ? null
+    : state.paused
+      ? Math.max(0, Math.ceil((state.pauseLeftMs ?? 0) / 1000))          // đóng băng khi tạm dừng
+      : state.phaseEndsAt
+        ? Math.max(0, Math.ceil((state.phaseEndsAt - now) / 1000))
+        : null
 
   const value: GameContextValue = {
     state,
