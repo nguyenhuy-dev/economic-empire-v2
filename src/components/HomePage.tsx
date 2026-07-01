@@ -521,7 +521,7 @@ function GameFlow() {
     {
       num: "01",
       name: "Huy Động Vốn (Quiz)",
-      desc: `Chọn độ khó Dễ / Vừa / Khó. Trả lời đúng trong 10 giây để nhận vốn khởi nghiệp lên đến 14B. Sai vẫn được an ủi (càng khó thì an ủi càng ít).`,
+      desc: `Chọn độ khó Dễ / Vừa / Khó. Trả lời đúng trong 15 giây để nhận vốn khởi nghiệp lên đến 14B. Sai vẫn được an ủi (càng khó thì an ủi càng ít).`,
     },
     {
       num: "02",
@@ -620,7 +620,7 @@ function GameFlow() {
             fontFamily: "Space Mono, monospace",
           }}
         >
-          QUIZ (10s)
+          QUIZ (15s)
         </span>
         <span style={{ color: "#222" }}>→</span>
         <span

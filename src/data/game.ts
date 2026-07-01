@@ -1,7 +1,7 @@
 import type { GameConfig, GameEvent } from '../types'
 
 export const phases = [
-  { id: 1, name: 'Huy động vốn', short: 'Quiz',    icon: '🎯', time: '10s' },
+  { id: 1, name: 'Huy động vốn', short: 'Quiz',    icon: '🎯', time: '15s' },
   { id: 2, name: 'Đầu tư + Buff', short: 'Đầu tư', icon: '💰', time: '30s' },
   { id: 3, name: 'Đàm phán',     short: 'Đàm phán', icon: '🤝', time: '30s' },
 ]
@@ -18,7 +18,7 @@ export const events: Record<number, GameEvent> = {
 // Hằng số gốc — dùng cho trang giới thiệu (homepage). Khớp với getGameConfig: 4 round, thuế 5%→20%.
 export const TOTAL_ROUNDS    = 4
 export const STARTING_CASH   = 10
-export const EARLY_WIN_SHARES= 6
+export const EARLY_WIN_SHARES= 5
 export const MAX_TRANSACTIONS= 2
 export const taxRates = { 1: 5, 2: 10, 3: 15, 4: 20 }
 
@@ -27,8 +27,8 @@ export const taxRates = { 1: 5, 2: 10, 3: 15, 4: 20 }
  *
  *   totalRounds    = 4 (CỐ ĐỊNH cho mọi sĩ số)
  *   startingCash   = round(22 - n*1.2)                 → 2 nhóm=20 … 10 nhóm=10
- *   totalShares    = n * 3                              → 2 nhóm=6  … 10 nhóm=30
- *   earlyWinShares = ceil(totalShares * 0.60)           → ~60% thâu tóm
+ *   totalShares    = 8 (CỐ ĐỊNH — mỗi công ty phát hành 8 cổ phần)
+ *   earlyWinShares = ceil(totalShares * 0.60) = 5       → ~60% thâu tóm (5/8)
  *   maxTransactions= 2 (cố định)
  *   taxRates       = leo thang đều 5% → 20% trong 4 round → 5/10/15/20
  */
@@ -39,14 +39,14 @@ export function getGameConfig(numTeams = 4): GameConfig {
   // KHÔNG nhân theo số người.
   const totalRounds     = 4
   const startingCash    = Math.round(22 - n * 1.2)
-  const totalShares     = n * 3
-  const earlyWinShares  = Math.ceil(totalShares * 0.6)
+  const totalShares     = 8                             // mỗi công ty phát hành 8 cổ phần (cố định)
+  const earlyWinShares  = Math.ceil(totalShares * 0.6)  // = 5 (5/8 ≈ 60% thâu tóm)
   const maxTransactions = 2
 
   // Thời lượng cho MỖI NHÓM trong từng phase (giây). Đồng hồ chạy lần lượt từng nhóm:
   // hết giờ nhóm này → nhóm kế; xong nhóm cuối → phase kế; hết phase 3 → kết thúc round.
-  // Tổng ván ≈ (10 + 30 + 30) × số nhóm × 4 round.
-  const phaseDurations  = { 1: 10, 2: 30, 3: 30 }
+  // Tổng ván ≈ (15 + 30 + 30) × số nhóm × 4 round.
+  const phaseDurations  = { 1: 15, 2: 30, 3: 30 }
 
   // Thuế leo thang đều từ 5% → 20%
   const taxRatesScaled: Record<number, number> = {}
