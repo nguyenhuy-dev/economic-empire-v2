@@ -1,24 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  --bg: #000000;
-  --bg-2: #0a0a0a;
-  --panel: #0e0e0e;
-  --panel-2: #141414;
-  --border: #242424;
-  --border-soft: #1a1a1a;
-  --text: #ffffff;
-  --text-dim: #666666;
-  --text-faint: #333333;
-  --gold: #F5A623;
-  --gold-dim: rgba(245, 166, 35, 0.15);
-  --green: #22c55e;
-  --red: #ef4444;
-  --blue: #3b82f6;
-  --purple: #a855f7;
-  --radius: 4px;
-  --radius-sm: 3px;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  /* Nền tối "đen ánh" (charcoal ấm), không đen tuyền */
+  --bg: #17191e;
+  --bg-2: #1e2128;
+  --panel: #1c1f26;
+  --panel-2: #262a33;
+  --border: #2f343e;
+  --border-soft: #272b33;
+  --text: #edeef2;
+  --text-dim: #9aa0ab;
+  --text-faint: #6b7280;
+  /* Accent cam ấm */
+  --gold: #ff8a3d;
+  --gold-soft: #ffa866;
+  --gold-dim: rgba(255, 138, 61, 0.14);
+  --green: #34d399;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --purple: #c084fc;
+  --mono: 'Space Mono', ui-monospace, monospace;
+  --radius: 10px;
+  --radius-sm: 7px;
+  --shadow: 0 10px 34px rgba(0, 0, 0, 0.38);
   font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -101,7 +105,7 @@ button {
 .section-head h2 {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--text-dim);
 }
@@ -176,9 +180,10 @@ button {
 .header-bar {
   display: flex;
   align-items: center;
-  gap: 32px;
-  height: 56px;
-  padding: 0 0;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  min-height: 56px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 20px;
 }
@@ -197,7 +202,7 @@ button {
 .header-logo h1 {
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 .header-nav {
@@ -208,7 +213,7 @@ button {
 .header-nav a {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--text-dim);
   text-decoration: none;
@@ -235,7 +240,7 @@ button {
   font-size: 9px;
   color: var(--text-faint);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   font-family: 'Space Mono', monospace;
 }
 .hstat .v {
@@ -254,7 +259,7 @@ button {
   color: #000;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   border-radius: var(--radius-sm);
   border: none;
@@ -346,7 +351,7 @@ button {
 .cb-label {
   font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   color: var(--text-faint);
   font-family: 'Space Mono', monospace;
 }
@@ -515,7 +520,7 @@ button {
 .stock-cat {
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--sc, var(--text-dim));
   font-family: 'Space Mono', monospace;
@@ -558,7 +563,7 @@ button {
 .stock-sublabel {
   font-size: 9px;
   color: var(--text-dim);
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-bottom: 14px;
   font-family: 'Space Mono', monospace;
@@ -582,7 +587,7 @@ button {
 .stock-supply-label {
   font-size: 9px;
   color: var(--text-dim);
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   font-family: 'Space Mono', monospace;
   margin-bottom: 10px;
@@ -734,7 +739,7 @@ button {
 .buff-tier {
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--bc);
   font-family: 'Space Mono', monospace;
@@ -1004,7 +1009,7 @@ button {
   color: var(--text-dim);
   margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   font-family: 'Space Mono', monospace;
 }
 .inbox-actions { display: flex; gap: 8px; margin-top: 10px; }

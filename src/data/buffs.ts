@@ -6,10 +6,10 @@ export function buffPrice(round: number): number {
 }
 
 export const tierMeta = {
-  uncommon: { label: 'Uncommon', color: '#22c55e', glow: 'rgba(34,197,94,.35)' },
-  rare: { label: 'Rare', color: '#a855f7', glow: 'rgba(168,85,247,.35)' },
-  epic: { label: 'Epic', color: '#eab308', glow: 'rgba(234,179,8,.4)' },
-  legendary: { label: 'Legendary', color: '#ef4444', glow: 'rgba(239,68,68,.45)' },
+  uncommon: { label: 'Uncommon', color: '#34d399', glow: 'rgba(52,211,153,.20)' },
+  rare: { label: 'Rare', color: '#c084fc', glow: 'rgba(192,132,252,.20)' },
+  epic: { label: 'Epic', color: '#fbbf24', glow: 'rgba(251,191,36,.22)' },
+  legendary: { label: 'Legendary', color: '#fb7185', glow: 'rgba(251,113,133,.24)' },
 }
 
 export const buffs = [
