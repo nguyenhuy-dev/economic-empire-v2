@@ -9,6 +9,7 @@ import {
 import { tierMeta, buffs } from "../data/buffs";
 import { priceChange } from "../utils/calc";
 import { useState, useEffect } from "react";
+import VerifyCard from "./VerifyCard";
 
 /* ── Responsive: true khi màn hình hẹp (mobile / tablet dọc) ── */
 function useIsMobile(breakpoint = 768) {
@@ -1456,11 +1457,13 @@ function Footer() {
 
 /* ── Main export ─────────────────────────────────────── */
 export default function HomePage({ onStart }) {
+  const [showVerify, setShowVerify] = useState(false);
+
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh", color: "var(--text)" }}>
       <Ticker />
-      <Nav onStart={onStart} />
-      <Hero onStart={onStart} />
+      <Nav onStart={() => setShowVerify(true)} />
+      <Hero onStart={() => setShowVerify(true)} />
       <div style={{ borderTop: "1px solid #111" }} />
       <Companies />
       <div style={{ borderTop: "1px solid #111" }} />
@@ -1471,9 +1474,18 @@ export default function HomePage({ onStart }) {
       <TaxAndEvents />
       <div style={{ borderTop: "1px solid #111" }} />
       <WinConditions />
-      <CTA onStart={onStart} />
+      <CTA onStart={() => setShowVerify(true)} />
       <AIAnnotation />
       <Footer />
+      {showVerify && (
+        <VerifyCard
+          onClose={() => setShowVerify(false)}
+          onSuccess={() => {
+            setShowVerify(false);
+            onStart();
+          }}
+        />
+      )}
     </div>
   );
 }
