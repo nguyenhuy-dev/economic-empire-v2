@@ -23,6 +23,21 @@ function useIsMobile(breakpoint = 768) {
   return mobile;
 }
 
+/* ── Bảng màu trang giới thiệu: đen ánh (charcoal ấm) + accent cam ── */
+const C = {
+  bg: "#16181d", // nền trang
+  bg2: "#1e2128", // dải/nền phụ
+  panel: "#1c1f26", // thẻ
+  border: "#2f343e", // viền rõ
+  borderSoft: "#262a32", // đường kẻ mảnh
+  orange: "#ff8a3d", // accent cam
+  text: "#edeef2", // chữ chính
+  light: "#c7ccd4", // chữ sáng
+  dim: "#9aa0ab", // chữ mờ
+  faint: "#6b7280", // chữ rất mờ
+  navBg: "rgba(22,24,29,0.82)",
+};
+
 /* ── Ticker ──────────────────────────────────────────── */
 function Ticker() {
   const items = companies.map((c) => {
@@ -56,11 +71,11 @@ function Nav({ onStart }) {
         alignItems: "center",
         gap: mobile ? 16 : 32,
         height: 56,
-        borderBottom: "1px solid #1f1f1f",
+        borderBottom: `1px solid ${C.border}`,
         padding: mobile ? "0 16px" : "0 48px",
         position: "sticky",
         top: 0,
-        background: "rgba(0,0,0,0.92)",
+        background: C.navBg,
         backdropFilter: "blur(12px)",
         zIndex: 10,
       }}
@@ -70,7 +85,7 @@ function Nav({ onStart }) {
           style={{
             width: 10,
             height: 10,
-            background: "#F5A623",
+            background: C.orange,
             borderRadius: 2,
             display: "inline-block",
           }}
@@ -79,7 +94,7 @@ function Nav({ onStart }) {
           style={{
             fontWeight: 700,
             fontSize: 15,
-            letterSpacing: 2,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
           }}
         >
@@ -106,9 +121,9 @@ function Nav({ onStart }) {
             style={{
               fontSize: 11,
               fontWeight: 600,
-              letterSpacing: 1.5,
+              letterSpacing: 0.4,
               textTransform: "uppercase",
-              color: "#555",
+              color: C.dim,
               textDecoration: "none",
               cursor: "pointer",
             }}
@@ -140,22 +155,22 @@ function Hero({ onStart }) {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            border: "1px solid #222",
+            border: `1px solid ${C.border}`,
             borderRadius: 3,
             padding: "5px 14px",
             marginBottom: 28,
             fontSize: 10,
-            color: "#555",
-            letterSpacing: 2,
+            color: C.dim,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
-            fontFamily: "Space Mono, monospace",
+            fontFamily: "inherit",
           }}
         >
           <span
             style={{
               width: 6,
               height: 6,
-              background: "#F5A623",
+              background: C.orange,
               borderRadius: 1,
             }}
           />
@@ -172,17 +187,17 @@ function Hero({ onStart }) {
             marginBottom: 24,
           }}
         >
-          <span style={{ color: "#fff" }}>
+          <span style={{ color: C.text }}>
             Thâu Tóm
             <br />
           </span>
-          <span style={{ color: "#F5A623" }}>Thị Trường</span>
+          <span style={{ color: C.orange }}>Thị Trường</span>
         </h1>
 
         <p
           style={{
             fontSize: 15,
-            color: "#666",
+            color: C.dim,
             lineHeight: 1.7,
             maxWidth: 480,
             marginBottom: 36,
@@ -200,8 +215,8 @@ function Hero({ onStart }) {
               alignItems: "center",
               gap: 8,
               fontSize: 11,
-              color: "#444",
-              fontFamily: "Space Mono, monospace",
+              color: C.faint,
+              fontFamily: "inherit",
             }}
           >
             <span
@@ -210,7 +225,7 @@ function Hero({ onStart }) {
                 height: 6,
                 borderRadius: "50%",
                 background: "#22c55e",
-                boxShadow: "0 0 6px #22c55e",
+                boxShadow: "none",
               }}
             />
             Trạng thái: Sẵn sàng
@@ -221,8 +236,8 @@ function Hero({ onStart }) {
       {/* Live data panel */}
       <div
         style={{
-          background: "#0e0e0e",
-          border: "1px solid #222",
+          background: C.panel,
+          border: `1px solid ${C.border}`,
           borderRadius: 4,
           padding: "18px 20px",
         }}
@@ -239,10 +254,10 @@ function Hero({ onStart }) {
             style={{
               fontSize: 10,
               fontWeight: 700,
-              letterSpacing: 2,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: "#444",
-              fontFamily: "Space Mono, monospace",
+              color: C.faint,
+              fontFamily: "inherit",
             }}
           >
             Lịch sử thuế
@@ -250,12 +265,12 @@ function Hero({ onStart }) {
           <span
             style={{
               fontSize: 9,
-              color: "#F5A623",
-              fontFamily: "Space Mono, monospace",
+              color: C.orange,
+              fontFamily: "inherit",
               letterSpacing: 1,
             }}
           >
-            LIVE DATA
+Thuế suất
           </span>
         </div>
         {Object.entries(taxRates).map(([round, rate]) => {
@@ -274,8 +289,8 @@ function Hero({ onStart }) {
               <span
                 style={{
                   fontSize: 9,
-                  color: "#333",
-                  fontFamily: "Space Mono, monospace",
+                  color: C.faint,
+                  fontFamily: "inherit",
                   width: 46,
                 }}
               >
@@ -285,7 +300,7 @@ function Hero({ onStart }) {
                 style={{
                   flex: 1,
                   height: 5,
-                  background: "#1a1a1a",
+                  background: C.borderSoft,
                   borderRadius: 2,
                   overflow: "hidden",
                 }}
@@ -304,7 +319,7 @@ function Hero({ onStart }) {
                   fontSize: 10,
                   fontWeight: 700,
                   color: c,
-                  fontFamily: "Space Mono, monospace",
+                  fontFamily: "inherit",
                   width: 28,
                   textAlign: "right",
                 }}
@@ -332,16 +347,16 @@ function Companies() {
           style={{
             fontSize: 10,
             fontWeight: 700,
-            letterSpacing: 2,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: "#F5A623",
-            fontFamily: "Space Mono, monospace",
+            color: C.orange,
+            fontFamily: "inherit",
             marginBottom: 10,
           }}
         >
           — Bốn tập đoàn niêm yết
         </div>
-        <div style={{ height: 1, background: "#1f1f1f" }} />
+        <div style={{ height: 1, background: C.border }} />
       </div>
       <div
         style={{
@@ -359,8 +374,8 @@ function Companies() {
             <div
               key={c.id}
               style={{
-                background: "#0e0e0e",
-                border: "1px solid #1f1f1f",
+                background: C.panel,
+                border: `1px solid ${C.border}`,
                 borderRadius: 4,
                 overflow: "hidden",
               }}
@@ -371,17 +386,17 @@ function Companies() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "10px 14px 8px",
-                  borderBottom: "1px solid #1a1a1a",
+                  borderBottom: `1px solid ${C.borderSoft}`,
                 }}
               >
                 <span
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: c.color,
-                    fontFamily: "Space Mono, monospace",
+                    fontFamily: "inherit",
                   }}
                 >
                   {c.ticker}
@@ -390,7 +405,7 @@ function Companies() {
                   style={{
                     fontSize: 10,
                     fontWeight: 700,
-                    fontFamily: "Space Mono, monospace",
+                    fontFamily: "inherit",
                     padding: "2px 7px",
                     borderRadius: 2,
                     color:
@@ -398,7 +413,7 @@ function Companies() {
                         ? "#22c55e"
                         : dir === "down"
                           ? "#ef4444"
-                          : "#555",
+                          : C.dim,
                     background:
                       dir === "up"
                         ? "rgba(34,197,94,.1)"
@@ -435,7 +450,7 @@ function Companies() {
                     style={{
                       fontSize: 28,
                       fontWeight: 700,
-                      fontFamily: "Space Mono, monospace",
+                      fontFamily: "inherit",
                       lineHeight: 1,
                     }}
                   >
@@ -445,10 +460,10 @@ function Companies() {
                 <div
                   style={{
                     fontSize: 9,
-                    color: "#444",
-                    letterSpacing: 2,
+                    color: C.faint,
+                    letterSpacing: 0.5,
                     textTransform: "uppercase",
-                    fontFamily: "Space Mono, monospace",
+                    fontFamily: "inherit",
                     marginBottom: 14,
                   }}
                 >
@@ -469,9 +484,9 @@ function Companies() {
                         width: 18,
                         height: 18,
                         borderRadius: 2,
-                        background: i < sold ? c.color : "#1a1a1a",
+                        background: i < sold ? c.color : C.borderSoft,
                         opacity: i < sold ? 0.75 : 1,
-                        border: `1px solid ${i < sold ? c.color : "#2a2a2a"}`,
+                        border: `1px solid ${i < sold ? c.color : C.border}`,
                         display: "inline-block",
                       }}
                     />
@@ -480,10 +495,10 @@ function Companies() {
                 <div
                   style={{
                     fontSize: 9,
-                    color: "#333",
-                    letterSpacing: 1.5,
+                    color: C.faint,
+                    letterSpacing: 0.4,
                     textTransform: "uppercase",
-                    fontFamily: "Space Mono, monospace",
+                    fontFamily: "inherit",
                   }}
                 >
                   {sold} / {TOTAL_SHARES} CP ĐANG LƯU HÀNH
@@ -527,10 +542,10 @@ function GameFlow() {
           style={{
             fontSize: 10,
             fontWeight: 700,
-            letterSpacing: 2,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: "#F5A623",
-            fontFamily: "Space Mono, monospace",
+            color: C.orange,
+            fontFamily: "inherit",
             marginBottom: 8,
           }}
         >
@@ -549,8 +564,8 @@ function GameFlow() {
           <div
             key={s.num}
             style={{
-              background: "#0e0e0e",
-              border: "1px solid #1f1f1f",
+              background: C.panel,
+              border: `1px solid ${C.border}`,
               borderRadius: 4,
               padding: "28px 24px",
             }}
@@ -559,8 +574,8 @@ function GameFlow() {
               style={{
                 fontSize: 48,
                 fontWeight: 800,
-                color: "#1a1a1a",
-                fontFamily: "Space Mono, monospace",
+                color: C.borderSoft,
+                fontFamily: "inherit",
                 lineHeight: 1,
                 marginBottom: 16,
               }}
@@ -578,7 +593,7 @@ function GameFlow() {
             >
               {s.name}
             </div>
-            <div style={{ fontSize: 12, color: "#555", lineHeight: 1.65 }}>
+            <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.65 }}>
               {s.desc}
             </div>
           </div>
@@ -586,8 +601,8 @@ function GameFlow() {
       </div>
       <div
         style={{
-          background: "#0a0a0a",
-          border: "1px solid #1a1a1a",
+          background: C.bg2,
+          border: `1px solid ${C.borderSoft}`,
           borderRadius: 4,
           padding: "12px 20px",
           display: "flex",
@@ -599,38 +614,38 @@ function GameFlow() {
         <span
           style={{
             fontSize: 10,
-            color: "#555",
-            fontFamily: "Space Mono, monospace",
+            color: C.dim,
+            fontFamily: "inherit",
           }}
         >
           QUIZ (10s)
         </span>
-        <span style={{ color: "#222" }}>→</span>
+        <span style={{ color: C.border }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: "#555",
-            fontFamily: "Space Mono, monospace",
+            color: C.dim,
+            fontFamily: "inherit",
           }}
         >
           ĐẦU TƯ + BUFF (30s)
         </span>
-        <span style={{ color: "#222" }}>→</span>
+        <span style={{ color: C.border }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: "#555",
-            fontFamily: "Space Mono, monospace",
+            color: C.dim,
+            fontFamily: "inherit",
           }}
         >
           ĐÀM PHÁN (30s)
         </span>
-        <span style={{ color: "#222" }}>→</span>
+        <span style={{ color: C.border }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: "#F5A623",
-            fontFamily: "Space Mono, monospace",
+            color: C.orange,
+            fontFamily: "inherit",
           }}
         >
           [HỆ THỐNG: THUẾ + GIÁ + SỰ KIỆN]
@@ -667,10 +682,10 @@ function BuffTiers() {
             style={{
               fontSize: 10,
               fontWeight: 700,
-              letterSpacing: 2,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: "#F5A623",
-              fontFamily: "Space Mono, monospace",
+              color: C.orange,
+              fontFamily: "inherit",
               marginBottom: 8,
             }}
           >
@@ -690,8 +705,8 @@ function BuffTiers() {
         <div
           style={{
             fontSize: 10,
-            color: "#444",
-            fontFamily: "Space Mono, monospace",
+            color: C.faint,
+            fontFamily: "inherit",
             textAlign: "right",
           }}
         >
@@ -711,8 +726,8 @@ function BuffTiers() {
             <div
               key={b.id}
               style={{
-                background: "#0e0e0e",
-                border: "1px solid #1f1f1f",
+                background: C.panel,
+                border: `1px solid ${C.border}`,
                 borderRadius: 4,
                 overflow: "hidden",
               }}
@@ -744,7 +759,7 @@ function BuffTiers() {
                     height: 44,
                     background: tm.color,
                     transform: "rotate(45deg)",
-                    boxShadow: `0 0 20px ${tm.glow}`,
+                    boxShadow: `0 0 10px ${tm.glow}`,
                   }}
                 />
               </div>
@@ -753,10 +768,10 @@ function BuffTiers() {
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
-                    letterSpacing: 2,
+                    letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: tm.color,
-                    fontFamily: "Space Mono, monospace",
+                    fontFamily: "inherit",
                     marginBottom: 6,
                   }}
                 >
@@ -772,7 +787,7 @@ function BuffTiers() {
                 >
                   {b.name}
                 </div>
-                <div style={{ fontSize: 11, color: "#555", lineHeight: 1.5 }}>
+                <div style={{ fontSize: 11, color: C.dim, lineHeight: 1.5 }}>
                   {b.effect}
                 </div>
               </div>
@@ -810,7 +825,7 @@ function TaxAndEvents() {
           ? "#22c55e"
           : e.type === "bad"
             ? "#ef4444"
-            : "#F5A623",
+            : C.orange,
     }));
   return (
     <section
@@ -827,10 +842,10 @@ function TaxAndEvents() {
           style={{
             fontSize: 10,
             fontWeight: 700,
-            letterSpacing: 2,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: "#F5A623",
-            fontFamily: "Space Mono, monospace",
+            color: C.orange,
+            fontFamily: "inherit",
             marginBottom: 10,
           }}
         >
@@ -848,7 +863,7 @@ function TaxAndEvents() {
         </div>
         <div
           style={{
-            border: "1px solid #1f1f1f",
+            border: `1px solid ${C.border}`,
             borderRadius: 4,
             overflow: "hidden",
           }}
@@ -858,8 +873,8 @@ function TaxAndEvents() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               padding: "8px 16px",
-              background: "#0a0a0a",
-              borderBottom: "1px solid #1a1a1a",
+              background: C.bg2,
+              borderBottom: `1px solid ${C.borderSoft}`,
             }}
           >
             {["Vòng đấu", "Thuế suất", "Trạng thái"].map((h) => (
@@ -867,10 +882,10 @@ function TaxAndEvents() {
                 key={h}
                 style={{
                   fontSize: 9,
-                  color: "#333",
+                  color: C.faint,
                   textTransform: "uppercase",
-                  letterSpacing: 1.5,
-                  fontFamily: "Space Mono, monospace",
+                  letterSpacing: 0.4,
+                  fontFamily: "inherit",
                 }}
               >
                 {h}
@@ -885,14 +900,14 @@ function TaxAndEvents() {
                 gridTemplateColumns: "1fr 1fr 1fr",
                 padding: "14px 16px",
                 borderBottom:
-                  i < taxBands.length - 1 ? "1px solid #141414" : "none",
+                  i < taxBands.length - 1 ? `1px solid ${C.borderSoft}` : "none",
               }}
             >
               <span
                 style={{
                   fontSize: 12,
-                  fontFamily: "Space Mono, monospace",
-                  color: "#aaa",
+                  fontFamily: "inherit",
+                  color: C.light,
                 }}
               >
                 {b.rounds}
@@ -902,12 +917,12 @@ function TaxAndEvents() {
                   fontSize: 13,
                   fontWeight: 700,
                   color: b.color,
-                  fontFamily: "Space Mono, monospace",
+                  fontFamily: "inherit",
                 }}
               >
                 {b.rate}
               </span>
-              <span style={{ fontSize: 11, color: "#555" }}>{b.label}</span>
+              <span style={{ fontSize: 11, color: C.dim }}>{b.label}</span>
             </div>
           ))}
         </div>
@@ -915,8 +930,8 @@ function TaxAndEvents() {
           style={{
             marginTop: 12,
             fontSize: 9,
-            color: "#333",
-            fontFamily: "Space Mono, monospace",
+            color: C.faint,
+            fontFamily: "inherit",
             letterSpacing: 1,
           }}
         >
@@ -929,10 +944,10 @@ function TaxAndEvents() {
           style={{
             fontSize: 10,
             fontWeight: 700,
-            letterSpacing: 2,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: "#F5A623",
-            fontFamily: "Space Mono, monospace",
+            color: C.orange,
+            fontFamily: "inherit",
             marginBottom: 10,
           }}
         >
@@ -950,8 +965,8 @@ function TaxAndEvents() {
         </div>
         <div
           style={{
-            background: "#0e0e0e",
-            border: "1px solid #1f1f1f",
+            background: C.panel,
+            border: `1px solid ${C.border}`,
             borderRadius: 4,
             padding: "20px 20px",
           }}
@@ -969,14 +984,14 @@ function TaxAndEvents() {
                 width: 6,
                 height: 6,
                 borderRadius: 1,
-                background: "#F5A623",
+                background: C.orange,
               }}
             />
             <span
               style={{
                 fontSize: 10,
-                fontFamily: "Space Mono, monospace",
-                color: "#555",
+                fontFamily: "inherit",
+                color: C.dim,
                 letterSpacing: 1,
               }}
             >
@@ -995,14 +1010,14 @@ function TaxAndEvents() {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ fontSize: 18 }}>{ev.icon}</span>
-                <span style={{ fontSize: 13, color: "#aaa" }}>{ev.title}</span>
+                <span style={{ fontSize: 13, color: C.light }}>{ev.title}</span>
               </div>
               <span
                 style={{
                   fontSize: 11,
                   fontWeight: 700,
                   color: ev.color,
-                  fontFamily: "Space Mono, monospace",
+                  fontFamily: "inherit",
                 }}
               >
                 {ev.badge}
@@ -1027,10 +1042,10 @@ function WinConditions() {
         style={{
           fontSize: 10,
           fontWeight: 700,
-          letterSpacing: 2,
+          letterSpacing: 0.5,
           textTransform: "uppercase",
-          color: "#F5A623",
-          fontFamily: "Space Mono, monospace",
+          color: C.orange,
+          fontFamily: "inherit",
           marginBottom: 10,
         }}
       >
@@ -1055,8 +1070,8 @@ function WinConditions() {
       >
         <div
           style={{
-            background: "#0e0e0e",
-            border: "1px solid #1f1f1f",
+            background: C.panel,
+            border: `1px solid ${C.border}`,
             borderRadius: 4,
             padding: "28px 28px",
           }}
@@ -1065,10 +1080,10 @@ function WinConditions() {
             style={{
               fontSize: 9,
               fontWeight: 700,
-              letterSpacing: 2,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: "#555",
-              fontFamily: "Space Mono, monospace",
+              color: C.dim,
+              fontFamily: "inherit",
               marginBottom: 12,
             }}
           >
@@ -1084,15 +1099,15 @@ function WinConditions() {
           >
             Thống Trị Tài Sản
           </div>
-          <p style={{ fontSize: 13, color: "#555", lineHeight: 1.65 }}>
+          <p style={{ fontSize: 13, color: C.dim, lineHeight: 1.65 }}>
             Có tổng giá trị tài sản — tiền mặt cộng giá trị cổ phần theo giá
             cuối vòng {TOTAL_ROUNDS} — lớn nhất so với các tập đoàn còn lại.
           </p>
         </div>
         <div
           style={{
-            background: "#0e0e0e",
-            border: "1px solid #1f1f1f",
+            background: C.panel,
+            border: `1px solid ${C.border}`,
             borderRadius: 4,
             padding: "28px 28px",
           }}
@@ -1101,10 +1116,10 @@ function WinConditions() {
             style={{
               fontSize: 9,
               fontWeight: 700,
-              letterSpacing: 2,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "#ef4444",
-              fontFamily: "Space Mono, monospace",
+              fontFamily: "inherit",
               marginBottom: 12,
             }}
           >
@@ -1120,7 +1135,7 @@ function WinConditions() {
           >
             Thâu Tóm Độc Quyền
           </div>
-          <p style={{ fontSize: 13, color: "#555", lineHeight: 1.65 }}>
+          <p style={{ fontSize: 13, color: C.dim, lineHeight: 1.65 }}>
             Sở hữu ≥ {EARLY_WIN_SHARES} cổ phần ({EARLY_WIN_SHARES}/
             {TOTAL_SHARES}) của bất kỳ một công ty nào để tuyên bố thâu tóm và
             thắng ngay lập tức, bất kể đang ở vòng nào.
@@ -1139,7 +1154,7 @@ function CTA({ onStart }) {
       style={{
         padding: mobile ? "56px 16px 64px" : "80px 48px 100px",
         textAlign: "center",
-        borderTop: "1px solid #111",
+        borderTop: `1px solid ${C.borderSoft}`,
       }}
     >
       <h2
@@ -1151,15 +1166,15 @@ function CTA({ onStart }) {
           marginBottom: 20,
         }}
       >
-        <span style={{ color: "#fff" }}>Bạn Sẽ Là </span>
-        <span style={{ color: "#F5A623" }}>Tập Đoàn</span>
+        <span style={{ color: C.text }}>Bạn Sẽ Là </span>
+        <span style={{ color: C.orange }}>Tập Đoàn</span>
         <br />
-        <span style={{ color: "#fff" }}>Nào Còn Đứng Vững?</span>
+        <span style={{ color: C.text }}>Nào Còn Đứng Vững?</span>
       </h2>
       <p
         style={{
           fontSize: 14,
-          color: "#555",
+          color: C.dim,
           marginBottom: 36,
           lineHeight: 1.7,
         }}
@@ -1178,7 +1193,7 @@ function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid #111",
+        borderTop: `1px solid ${C.borderSoft}`,
         padding: mobile ? "16px 16px" : "20px 48px",
         display: "flex",
         alignItems: "center",
@@ -1190,12 +1205,12 @@ function Footer() {
       <span
         style={{
           fontSize: 10,
-          color: "#333",
-          fontFamily: "Space Mono, monospace",
+          color: C.faint,
+          fontFamily: "inherit",
           letterSpacing: 1,
         }}
       >
-        © 2026 ĐẾ CHẾ KINH TẾ · TERMINAL V3.0.4 · ALL RIGHTS RESERVED
+        © 2026 Đế Chế Kinh Tế · Board game chiến thuật kinh tế
       </span>
       <div style={{ display: "flex", gap: 24 }}>
         {["Điều khoản", "Bộ câu hỏi", "Liên hệ"].map((l) => (
@@ -1205,9 +1220,9 @@ function Footer() {
             onClick={(e) => e.preventDefault()}
             style={{
               fontSize: 10,
-              color: "#333",
+              color: C.faint,
               textDecoration: "none",
-              fontFamily: "Space Mono, monospace",
+              fontFamily: "inherit",
               letterSpacing: 1,
               textTransform: "uppercase",
             }}
@@ -1223,19 +1238,19 @@ function Footer() {
 /* ── Main export ─────────────────────────────────────── */
 export default function HomePage({ onStart }) {
   return (
-    <div style={{ background: "#000", minHeight: "100vh", color: "#fff" }}>
+    <div style={{ background: C.bg, minHeight: "100vh", color: C.text }}>
       <Ticker />
       <Nav onStart={onStart} />
       <Hero onStart={onStart} />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <Companies />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <GameFlow />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <BuffTiers />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <TaxAndEvents />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <WinConditions />
       <CTA onStart={onStart} />
       <Footer />
