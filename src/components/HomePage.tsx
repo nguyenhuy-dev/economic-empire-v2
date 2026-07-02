@@ -93,6 +93,7 @@ function Nav({ onStart }) {
           { label: "Thẻ Quyền Lực", id: "the-quyen-luc" },
           { label: "Sự Kiện", id: "su-kien" },
           { label: "Chiến Thắng", id: "chien-thang" },
+          { label: "Chú Thích AI", id: "chu-thich-ai" },
         ].map(({ label, id }) => (
           <a
             key={id}
@@ -1189,6 +1190,222 @@ function CTA({ onStart }) {
   );
 }
 
+/* ── AI Annotation ───────────────────────────────────── */
+const aiTools = [
+  {
+    name: "Claude Code",
+    img: "/claude-ai-icon.webp",
+    desc: "Claude Code là một công cụ lập trình thông minh, có khả năng đọc mã nguồn, chỉnh sửa tệp, chạy lệnh và tích hợp với các công cụ phát triển của bạn. Có sẵn trên terminal, IDE, ứng dụng máy tính để bàn và trình duyệt.",
+    desc2: "Claude Code là trợ lý lập trình được hỗ trợ bởi trí tuệ nhân tạo, giúp bạn xây dựng tính năng, sửa lỗi và tự động hóa các tác vụ phát triển. Nó hiểu toàn bộ mã nguồn của bạn và có thể làm việc trên nhiều tệp và công cụ để hoàn thành công việc.",
+    accent: "#d97706",
+  },
+  {
+    name: "Gemini",
+    img: "/gemini.webp",
+    desc: "Gemini AI là trợ lý trí tuệ nhân tạo đa phương thức thế hệ mới của Google, sở hữu cửa sổ ngữ cảnh cực lớn giúp thấu hiểu toàn bộ kiến trúc mã nguồn phức tạp và dữ liệu hệ thống của bạn.",
+    desc2: "Không chỉ dừng lại ở một công cụ lập trình thông minh có khả năng viết code, sửa lỗi và thiết kế hệ thống, Gemini còn là một trợ lý toàn năng tích hợp sâu vào hệ sinh thái công cụ (từ IDE, terminal đến đám mây) và các ứng dụng hàng ngày, giúp bạn tự động hóa quy trình làm việc, phân tích dữ liệu đa phương tiện và tối ưu hóa hiệu suất toàn diện.",
+    accent: "#4285f4",
+  },
+  {
+    name: "Antigravity",
+    img: "/google-antigravity.jpg",
+    desc: "Google Antigravity là một nền tảng phát triển phần mềm dựa trên tác nhân và môi trường phát triển tích hợp (IDE).",
+    desc2: "Nó cho phép các nhà phát triển triển khai các tác nhân AI tự động để lập kế hoạch, viết, kiểm thử và gỡ lỗi các dự án lập trình phức tạp trên nhiều trình soạn thảo, thiết bị đầu cuối và trình duyệt.",
+    accent: "#22c55e",
+  },
+];
+
+function AIAnnotation() {
+  const mobile = useIsMobile();
+  return (
+    <section
+      id="chu-thich-ai"
+      style={{
+        padding: mobile ? "48px 16px" : "72px 48px",
+        borderTop: "1px solid #111",
+      }}
+    >
+      {/* Section header */}
+      <div style={{ marginBottom: 40 }}>
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
+            marginBottom: 10,
+          }}
+        >
+          — Chú thích AI
+        </div>
+        <div style={{ height: 1, background: "var(--border)" }} />
+        <h2
+          style={{
+            fontSize: "clamp(22px, 3vw, 32px)",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            marginTop: 18,
+            marginBottom: 6,
+            lineHeight: 1.15,
+          }}
+        >
+          Được xây dựng với sự hỗ trợ của{" "}
+          <span style={{ color: "var(--gold)" }}>AI</span>
+        </h2>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--text-dim)",
+            lineHeight: 1.7,
+            maxWidth: 560,
+          }}
+        >
+          Dự án này được phát triển với sự hỗ trợ của các công cụ AI hiện đại
+          dưới đây.
+        </p>
+        <div
+          style={{
+            marginTop: 16,
+            padding: "14px 18px",
+            background: "rgba(234,179,8,0.06)",
+            borderLeft: "3px solid var(--gold)",
+            borderRadius: "0 4px 4px 0",
+            maxWidth: 620,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 12,
+              color: "var(--gold)",
+              lineHeight: 1.75,
+              margin: 0,
+              fontWeight: 600,
+            }}
+          >
+            ⚠️ Nhóm chỉ sử dụng công cụ AI cho mục đích hỗ trợ code giao diện,
+            tổng hợp lí thuyết. Mọi kiến thức, tài liệu đều được trích dẫn và
+            kiểm chứng từ nguồn chính thống.
+          </p>
+        </div>
+      </div>
+
+      {/* 3-column grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)",
+          gap: 18,
+        }}
+      >
+        {aiTools.map((tool) => (
+          <div
+            key={tool.name}
+            style={{
+              background: "var(--panel)",
+              border: "1px solid #1f1f1f",
+              borderRadius: 6,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              transition: "border-color .25s, box-shadow .25s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = tool.accent;
+              e.currentTarget.style.boxShadow = `0 0 20px ${tool.accent}22`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "#1f1f1f";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            {/* Image */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "16 / 9",
+                overflow: "hidden",
+                background: "#0d0e11",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={tool.img}
+                alt={tool.name}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  padding: 20,
+                }}
+              />
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: "18px 20px 22px", flex: 1 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 12,
+                }}
+              >
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: tool.accent,
+                    display: "inline-block",
+                    boxShadow: `0 0 6px ${tool.accent}88`,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: 0.4,
+                    textTransform: "uppercase",
+                    color: tool.accent,
+                    fontFamily: "var(--mono)",
+                  }}
+                >
+                  {tool.name}
+                </span>
+              </div>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-dim)",
+                  lineHeight: 1.7,
+                  marginBottom: 10,
+                }}
+              >
+                {tool.desc}
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-faint)",
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                {tool.desc2}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* ── Footer ──────────────────────────────────────────── */
 function Footer() {
   const mobile = useIsMobile();
@@ -1255,6 +1472,7 @@ export default function HomePage({ onStart }) {
       <div style={{ borderTop: "1px solid #111" }} />
       <WinConditions />
       <CTA onStart={onStart} />
+      <AIAnnotation />
       <Footer />
     </div>
   );

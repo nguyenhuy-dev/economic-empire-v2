@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { difficulties, quizQuestions } from '../data/quiz'
 import { fmt } from '../utils/calc'
 import { useGame } from '../state/GameContext'
@@ -21,7 +21,8 @@ export default function QuizPanel() {
   const locked = counter.quizDone || active.bankrupt || state.gameOver
 
   const meta = difficulties.find((d) => d.id === diff)
-  const question = quizQuestions[diff][0]
+  const randomIdx = useMemo(() => Math.floor(Math.random() * 4), [diff, viewTeamId, state.round])
+  const question = quizQuestions[diff][randomIdx]
   const failReward = meta.failReward
 
   function pick(i) {
