@@ -96,7 +96,6 @@ function Nav({ onStart }) {
             fontWeight: 700,
             fontSize: 15,
             letterSpacing: 0.5,
-            letterSpacing: 0.5,
             textTransform: "uppercase",
           }}
         >
@@ -124,7 +123,6 @@ function Nav({ onStart }) {
             style={{
               fontSize: 11,
               fontWeight: 600,
-              letterSpacing: 0.4,
               letterSpacing: 0.4,
               textTransform: "uppercase",
               color: "var(--text-dim)",
@@ -247,7 +245,6 @@ function Hero({ onStart }) {
                 borderRadius: "50%",
                 background: "#22c55e",
                 boxShadow: "none",
-                boxShadow: "none",
               }}
             />
             Trạng thái: Sẵn sàng
@@ -276,7 +273,6 @@ function Hero({ onStart }) {
             style={{
               fontSize: 10,
               fontWeight: 700,
-              letterSpacing: 0.5,
               letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--text-faint)",
@@ -372,7 +368,6 @@ function Companies() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
-            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -418,7 +413,6 @@ function Companies() {
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
-                    letterSpacing: 0.5,
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: c.color,
@@ -569,7 +563,6 @@ function GameFlow() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
-            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -710,7 +703,6 @@ function BuffTiers() {
               fontSize: 10,
               fontWeight: 700,
               letterSpacing: 0.5,
-              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--gold)",
               fontFamily: "var(--mono)",
@@ -788,7 +780,6 @@ function BuffTiers() {
                     background: tm.color,
                     transform: "rotate(45deg)",
                     boxShadow: `0 0 10px ${tm.glow}`,
-                    boxShadow: `0 0 10px ${tm.glow}`,
                   }}
                 />
               </div>
@@ -797,7 +788,6 @@ function BuffTiers() {
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
-                    letterSpacing: 0.5,
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: tm.color,
@@ -872,7 +862,6 @@ function TaxAndEvents() {
           style={{
             fontSize: 10,
             fontWeight: 700,
-            letterSpacing: 0.5,
             letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
@@ -976,7 +965,6 @@ function TaxAndEvents() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
-            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -1075,7 +1063,6 @@ function WinConditions() {
           fontSize: 10,
           fontWeight: 700,
           letterSpacing: 0.5,
-          letterSpacing: 0.5,
           textTransform: "uppercase",
           color: "var(--gold)",
           fontFamily: "var(--mono)",
@@ -1114,7 +1101,6 @@ function WinConditions() {
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: 0.5,
-              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--text-dim)",
               fontFamily: "var(--mono)",
@@ -1150,7 +1136,6 @@ function WinConditions() {
             style={{
               fontSize: 9,
               fontWeight: 700,
-              letterSpacing: 0.5,
               letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "#ef4444",
