@@ -1,5 +1,5 @@
-// 4 công ty niêm yết — mỗi công ty có 10 cổ phần
-export const TOTAL_SHARES = 10
+// 4 công ty niêm yết — mỗi công ty phát hành 8 cổ phần
+export const TOTAL_SHARES = 8
 
 export const companies = [
   {

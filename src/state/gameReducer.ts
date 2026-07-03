@@ -1,7 +1,7 @@
 import { teams as teamSeed } from '../data/teams'
 import { companies as companySeed } from '../data/companies'
 import { getGameConfig } from '../data/game'
-import { buffs } from '../data/buffs'
+import { buffs, buffPrice } from '../data/buffs'
 import { difficulties } from '../data/quiz'
 import { round1, totalAssets, holdingsValue, earlyWinCompany } from '../utils/calc'
 import type { GameState, GameAction, Team, TradeBundle } from '../types'
@@ -43,6 +43,8 @@ export function makeInitialState(numTeams = 4): GameState {
     round: 1,
     phase: 1,
     phaseEndsAt: Date.now() + config.phaseDurations[1] * 1000,
+    paused: false,
+    pauseLeftMs: null,
     activeTeamId: teams[0].id,
     teams,
     companies,
@@ -57,10 +59,12 @@ export function makeInitialState(numTeams = 4): GameState {
   }
 }
 
-// Mốc thời gian hết phase (host dùng để tự chuyển phase)
-function phaseDeadline(state, phase) {
-  const sec = state.config.phaseDurations?.[phase] ?? 45
-  return Date.now() + sec * 1000
+// Đặt lại đồng hồ cho lượt hiện tại. Đang tạm dừng → chỉ nạp lại thời lượng (đóng băng);
+// khi tiếp tục mới tính hạn thực từ Date.now().
+function armTimer(state, phase) {
+  const ms = (state.config.phaseDurations?.[phase] ?? 45) * 1000
+  if (state.paused) state.pauseLeftMs = ms
+  else state.phaseEndsAt = Date.now() + ms
 }
 
 // ---------- tiện ích ----------
@@ -185,7 +189,7 @@ function endRound(state) {
 
   state.round += 1
   state.phase  = 1
-  state.phaseEndsAt = phaseDeadline(state, 1)
+  armTimer(state, 1)
   state.perRound = freshPerRound(state.teams)
   state.trades   = []
   const first = firstAliveId(state)
@@ -204,7 +208,7 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'SET_PHASE': {
       state.phase = action.phase
-      state.phaseEndsAt = phaseDeadline(state, action.phase)
+      armTimer(state, action.phase)
       const first = firstAliveId(state)        // vào phase mới → bắt đầu lượt từ nhóm đầu
       if (first) state.activeTeamId = first
       return state
@@ -215,12 +219,26 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       if (!target || target.bankrupt) return prev   // không cho chọn nhóm đã phá sản
       state.activeTeamId = action.teamId
       // chọn nhóm = bắt đầu lượt của nhóm đó → đặt lại đồng hồ phase
-      if (!state.gameOver && state.phaseEndsAt != null) state.phaseEndsAt = phaseDeadline(state, state.phase)
+      if (!state.gameOver) armTimer(state, state.phase)
+      return state
+    }
+
+    case 'TOGGLE_PAUSE': {
+      if (state.gameOver) return prev
+      if (!state.paused) {
+        if (state.phaseEndsAt == null) return prev      // không có gì để dừng
+        state.pauseLeftMs = Math.max(0, state.phaseEndsAt - Date.now())
+        state.paused = true
+      } else {
+        state.phaseEndsAt = Date.now() + (state.pauseLeftMs ?? 0)  // tiếp tục từ chỗ đóng băng
+        state.pauseLeftMs = null
+        state.paused = false
+      }
       return state
     }
 
     case 'NEXT_TURN': {
-      if (state.gameOver || state.phaseEndsAt == null) return prev
+      if (state.gameOver || state.paused || state.phaseEndsAt == null) return prev
       const order = state.teams.filter((t) => !t.bankrupt).map((t) => t.id)
       if (order.length === 0) return prev
       const idx = order.indexOf(state.activeTeamId)
@@ -228,18 +246,19 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       // còn nhóm phía sau trong cùng phase → sang nhóm kế
       if (idx >= 0 && idx < order.length - 1) {
         state.activeTeamId = order[idx + 1]
-        state.phaseEndsAt = phaseDeadline(state, state.phase)
+        armTimer(state, state.phase)
         return state
       }
       // nhóm cuối của phase → sang phase kế (bắt đầu lại từ nhóm đầu)
       if (state.phase < 3) {
         state.phase += 1
         state.activeTeamId = order[0]
-        state.phaseEndsAt = phaseDeadline(state, state.phase)
+        armTimer(state, state.phase)
         return state
       }
-      // phase 3 + nhóm cuối → kết thúc round
-      endRound(state)
+      // phase 3 + nhóm cuối → DỪNG đồng hồ, chờ quản trò bấm "Kết thúc Round"
+      state.phaseEndsAt = null
+      pushLog(state, 'sys', `⏳ Hết Phase 3 — bấm "Kết thúc Round ${state.round}" để sang round kế.`)
       return state
     }
 
@@ -297,11 +316,12 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       const counter = state.perRound[team.id]
       const buff    = buffById[action.buffId]
       if (team.bankrupt || counter.buffBought || !buff) return prev
-      if (team.cash < 3) return prev
-      team.cash = round1(team.cash - 3)
+      const price = buffPrice(state.round)
+      if (team.cash < price) return prev
+      team.cash = round1(team.cash - price)
       counter.buffBought = true
       team.buffs.push(buff.id)
-      pushLog(state, 'buff', `🃏 ${team.name} mua buff "${buff.name}" (3B).`)
+      pushLog(state, 'buff', `🃏 ${team.name} mua buff "${buff.name}" (${price}B).`)
 
       if (buff.id === 'uncommon-extrabuy') {
         counter.extraBuys += 1

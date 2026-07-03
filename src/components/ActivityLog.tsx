@@ -5,7 +5,7 @@ export default function ActivityLog() {
   return (
     <section className="panel panel-pad">
       <div className="section-head">
-        <span className="section-icon">📰</span>
+        <span className="section-icon" style={{ marginRight: '6px' }}>📰</span>
         <h2>Nhật ký ván đấu</h2>
         <span className="tag">{state.log.length} dòng</span>
       </div>

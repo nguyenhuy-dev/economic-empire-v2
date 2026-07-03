@@ -11,6 +11,7 @@ import BuffShop from './components/BuffShop'
 import NegotiationPanel from './components/NegotiationPanel'
 import StockMarket from './components/StockMarket'
 import Scoreboard from './components/Scoreboard'
+import CapTable from './components/CapTable'
 import ActivityLog from './components/ActivityLog'
 import GameOverModal from './components/GameOverModal'
 import { tierMeta } from './data/buffs'
@@ -54,12 +55,14 @@ function Board({ onHome, onSetup }: { onHome: () => void; onSetup: () => void })
       <div className="grid grid-main">
         <div className="stack">
           {state.phase === 1 && <QuizPanel />}
-          {state.phase === 2 && <BuffShop />}
           {state.phase === 3 && <NegotiationPanel />}
+          {/* Phase 2: ưu tiên mua/bán cổ phần lên trên, thẻ quyền lực xuống dưới */}
           <StockMarket />
+          {state.phase === 2 && <BuffShop />}
         </div>
         <div className="stack">
           <Scoreboard />
+          <CapTable />
           <ActivityLog />
           <TierLegend />
         </div>

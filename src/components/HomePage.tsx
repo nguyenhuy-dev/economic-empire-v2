@@ -9,6 +9,7 @@ import {
 import { tierMeta, buffs } from "../data/buffs";
 import { priceChange } from "../utils/calc";
 import { useState, useEffect } from "react";
+import VerifyCard from "./VerifyCard";
 
 /* ── Responsive: true khi màn hình hẹp (mobile / tablet dọc) ── */
 function useIsMobile(breakpoint = 768) {
@@ -75,7 +76,7 @@ function Nav({ onStart }) {
         padding: mobile ? "0 16px" : "0 48px",
         position: "sticky",
         top: 0,
-        background: C.navBg,
+        background: "rgba(23,25,30,0.82)",
         backdropFilter: "blur(12px)",
         zIndex: 10,
       }}
@@ -85,7 +86,7 @@ function Nav({ onStart }) {
           style={{
             width: 10,
             height: 10,
-            background: C.orange,
+            background: "var(--gold)",
             borderRadius: 2,
             display: "inline-block",
           }}
@@ -108,6 +109,7 @@ function Nav({ onStart }) {
           { label: "Thẻ Quyền Lực", id: "the-quyen-luc" },
           { label: "Sự Kiện", id: "su-kien" },
           { label: "Chiến Thắng", id: "chien-thang" },
+          { label: "Chú Thích AI", id: "chu-thich-ai" },
         ].map(({ label, id }) => (
           <a
             key={id}
@@ -123,7 +125,7 @@ function Nav({ onStart }) {
               fontWeight: 600,
               letterSpacing: 0.4,
               textTransform: "uppercase",
-              color: C.dim,
+              color: "var(--text-dim)",
               textDecoration: "none",
               cursor: "pointer",
             }}
@@ -155,22 +157,22 @@ function Hero({ onStart }) {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            border: `1px solid ${C.border}`,
+            border: "1px solid var(--border)",
             borderRadius: 3,
             padding: "5px 14px",
             marginBottom: 28,
             fontSize: 10,
-            color: C.dim,
+            color: "var(--text-dim)",
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            fontFamily: "inherit",
+            fontFamily: "var(--mono)",
           }}
         >
           <span
             style={{
               width: 6,
               height: 6,
-              background: C.orange,
+              background: "var(--gold)",
               borderRadius: 1,
             }}
           />
@@ -187,17 +189,17 @@ function Hero({ onStart }) {
             marginBottom: 24,
           }}
         >
-          <span style={{ color: C.text }}>
+          <span style={{ color: "var(--text)" }}>
             Thâu Tóm
             <br />
           </span>
-          <span style={{ color: C.orange }}>Thị Trường</span>
+          <span style={{ color: "var(--gold)" }}>Thị Trường</span>
         </h1>
 
         <p
           style={{
             fontSize: 15,
-            color: C.dim,
+            color: "var(--text-dim)",
             lineHeight: 1.7,
             maxWidth: 480,
             marginBottom: 36,
@@ -209,14 +211,31 @@ function Hero({ onStart }) {
         </p>
 
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <button
+            onClick={onStart}
+            style={{
+              padding: "14px 28px",
+              background: "var(--gold)",
+              color: "#000",
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: 0.4,
+              textTransform: "uppercase",
+              border: "none",
+              borderRadius: 3,
+              cursor: "pointer",
+            }}
+          >
+            Bắt Đầu Ván Đấu
+          </button>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               gap: 8,
               fontSize: 11,
-              color: C.faint,
-              fontFamily: "inherit",
+              color: "var(--text-faint)",
+              fontFamily: "var(--mono)",
             }}
           >
             <span
@@ -236,8 +255,8 @@ function Hero({ onStart }) {
       {/* Live data panel */}
       <div
         style={{
-          background: C.panel,
-          border: `1px solid ${C.border}`,
+          background: "var(--panel)",
+          border: "1px solid var(--border)",
           borderRadius: 4,
           padding: "18px 20px",
         }}
@@ -256,8 +275,8 @@ function Hero({ onStart }) {
               fontWeight: 700,
               letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: C.faint,
-              fontFamily: "inherit",
+              color: "var(--text-faint)",
+              fontFamily: "var(--mono)",
             }}
           >
             Lịch sử thuế
@@ -265,11 +284,12 @@ function Hero({ onStart }) {
           <span
             style={{
               fontSize: 9,
-              color: C.orange,
-              fontFamily: "inherit",
+              color: "var(--gold)",
+              fontFamily: "var(--mono)",
               letterSpacing: 1,
             }}
           >
+Thuế suất
 Thuế suất
           </span>
         </div>
@@ -289,8 +309,8 @@ Thuế suất
               <span
                 style={{
                   fontSize: 9,
-                  color: C.faint,
-                  fontFamily: "inherit",
+                  color: "var(--text-faint)",
+                  fontFamily: "var(--mono)",
                   width: 46,
                 }}
               >
@@ -300,7 +320,7 @@ Thuế suất
                 style={{
                   flex: 1,
                   height: 5,
-                  background: C.borderSoft,
+                  background: "var(--border-soft)",
                   borderRadius: 2,
                   overflow: "hidden",
                 }}
@@ -319,7 +339,7 @@ Thuế suất
                   fontSize: 10,
                   fontWeight: 700,
                   color: c,
-                  fontFamily: "inherit",
+                  fontFamily: "var(--mono)",
                   width: 28,
                   textAlign: "right",
                 }}
@@ -349,14 +369,14 @@ function Companies() {
             fontWeight: 700,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: C.orange,
-            fontFamily: "inherit",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
             marginBottom: 10,
           }}
         >
           — Bốn tập đoàn niêm yết
         </div>
-        <div style={{ height: 1, background: C.border }} />
+        <div style={{ height: 1, background: "var(--border)" }} />
       </div>
       <div
         style={{
@@ -374,8 +394,8 @@ function Companies() {
             <div
               key={c.id}
               style={{
-                background: C.panel,
-                border: `1px solid ${C.border}`,
+                background: "var(--panel)",
+                border: "1px solid #1f1f1f",
                 borderRadius: 4,
                 overflow: "hidden",
               }}
@@ -386,7 +406,7 @@ function Companies() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: "10px 14px 8px",
-                  borderBottom: `1px solid ${C.borderSoft}`,
+                  borderBottom: "1px solid var(--border-soft)",
                 }}
               >
                 <span
@@ -396,7 +416,7 @@ function Companies() {
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: c.color,
-                    fontFamily: "inherit",
+                    fontFamily: "var(--mono)",
                   }}
                 >
                   {c.ticker}
@@ -405,7 +425,7 @@ function Companies() {
                   style={{
                     fontSize: 10,
                     fontWeight: 700,
-                    fontFamily: "inherit",
+                    fontFamily: "var(--mono)",
                     padding: "2px 7px",
                     borderRadius: 2,
                     color:
@@ -413,7 +433,7 @@ function Companies() {
                         ? "#22c55e"
                         : dir === "down"
                           ? "#ef4444"
-                          : C.dim,
+                          : "var(--text-dim)",
                     background:
                       dir === "up"
                         ? "rgba(34,197,94,.1)"
@@ -450,7 +470,7 @@ function Companies() {
                     style={{
                       fontSize: 28,
                       fontWeight: 700,
-                      fontFamily: "inherit",
+                      fontFamily: "var(--mono)",
                       lineHeight: 1,
                     }}
                   >
@@ -460,10 +480,10 @@ function Companies() {
                 <div
                   style={{
                     fontSize: 9,
-                    color: C.faint,
+                    color: "var(--text-faint)",
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
-                    fontFamily: "inherit",
+                    fontFamily: "var(--mono)",
                     marginBottom: 14,
                   }}
                 >
@@ -484,9 +504,9 @@ function Companies() {
                         width: 18,
                         height: 18,
                         borderRadius: 2,
-                        background: i < sold ? c.color : C.borderSoft,
+                        background: i < sold ? c.color : "var(--border-soft)",
                         opacity: i < sold ? 0.75 : 1,
-                        border: `1px solid ${i < sold ? c.color : C.border}`,
+                        border: `1px solid ${i < sold ? c.color : "var(--border)"}`,
                         display: "inline-block",
                       }}
                     />
@@ -495,10 +515,10 @@ function Companies() {
                 <div
                   style={{
                     fontSize: 9,
-                    color: C.faint,
+                    color: "var(--text-faint)",
                     letterSpacing: 0.4,
                     textTransform: "uppercase",
-                    fontFamily: "inherit",
+                    fontFamily: "var(--mono)",
                   }}
                 >
                   {sold} / {TOTAL_SHARES} CP ĐANG LƯU HÀNH
@@ -519,7 +539,7 @@ function GameFlow() {
     {
       num: "01",
       name: "Huy Động Vốn (Quiz)",
-      desc: `Chọn độ khó Dễ / Vừa / Khó. Trả lời đúng trong 10 giây để nhận vốn khởi nghiệp lên đến 14B. Sai vẫn được an ủi (càng khó thì an ủi càng ít).`,
+      desc: `Chọn độ khó Dễ / Vừa / Khó. Trả lời đúng trong 15 giây để nhận vốn khởi nghiệp lên đến 14B. Sai vẫn được an ủi (càng khó thì an ủi càng ít).`,
     },
     {
       num: "02",
@@ -544,8 +564,8 @@ function GameFlow() {
             fontWeight: 700,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: C.orange,
-            fontFamily: "inherit",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
             marginBottom: 8,
           }}
         >
@@ -564,8 +584,8 @@ function GameFlow() {
           <div
             key={s.num}
             style={{
-              background: C.panel,
-              border: `1px solid ${C.border}`,
+              background: "var(--panel)",
+              border: "1px solid #1f1f1f",
               borderRadius: 4,
               padding: "28px 24px",
             }}
@@ -574,8 +594,8 @@ function GameFlow() {
               style={{
                 fontSize: 48,
                 fontWeight: 800,
-                color: C.borderSoft,
-                fontFamily: "inherit",
+                color: "var(--border-soft)",
+                fontFamily: "var(--mono)",
                 lineHeight: 1,
                 marginBottom: 16,
               }}
@@ -593,7 +613,7 @@ function GameFlow() {
             >
               {s.name}
             </div>
-            <div style={{ fontSize: 12, color: C.dim, lineHeight: 1.65 }}>
+            <div style={{ fontSize: 12, color: "var(--text-dim)", lineHeight: 1.65 }}>
               {s.desc}
             </div>
           </div>
@@ -601,8 +621,8 @@ function GameFlow() {
       </div>
       <div
         style={{
-          background: C.bg2,
-          border: `1px solid ${C.borderSoft}`,
+          background: "var(--bg-2)",
+          border: "1px solid var(--border-soft)",
           borderRadius: 4,
           padding: "12px 20px",
           display: "flex",
@@ -614,38 +634,38 @@ function GameFlow() {
         <span
           style={{
             fontSize: 10,
-            color: C.dim,
-            fontFamily: "inherit",
+            color: "var(--text-dim)",
+            fontFamily: "var(--mono)",
           }}
         >
-          QUIZ (10s)
+          QUIZ (15s)
         </span>
-        <span style={{ color: C.border }}>→</span>
+        <span style={{ color: "var(--border)" }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: C.dim,
-            fontFamily: "inherit",
+            color: "var(--text-dim)",
+            fontFamily: "var(--mono)",
           }}
         >
           ĐẦU TƯ + BUFF (30s)
         </span>
-        <span style={{ color: C.border }}>→</span>
+        <span style={{ color: "var(--border)" }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: C.dim,
-            fontFamily: "inherit",
+            color: "var(--text-dim)",
+            fontFamily: "var(--mono)",
           }}
         >
           ĐÀM PHÁN (30s)
         </span>
-        <span style={{ color: C.border }}>→</span>
+        <span style={{ color: "var(--border)" }}>→</span>
         <span
           style={{
             fontSize: 10,
-            color: C.orange,
-            fontFamily: "inherit",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
           }}
         >
           [HỆ THỐNG: THUẾ + GIÁ + SỰ KIỆN]
@@ -684,8 +704,8 @@ function BuffTiers() {
               fontWeight: 700,
               letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: C.orange,
-              fontFamily: "inherit",
+              color: "var(--gold)",
+              fontFamily: "var(--mono)",
               marginBottom: 8,
             }}
           >
@@ -705,12 +725,12 @@ function BuffTiers() {
         <div
           style={{
             fontSize: 10,
-            color: C.faint,
-            fontFamily: "inherit",
+            color: "var(--text-faint)",
+            fontFamily: "var(--mono)",
             textAlign: "right",
           }}
         >
-          GIÁ CỐ ĐỊNH: 3B / GÓI · 3 GÓI / VÒNG
+          GIÁ TĂNG DẦN: 3 → 9B / GÓI · 3 GÓI / VÒNG
         </div>
       </div>
       <div
@@ -726,8 +746,8 @@ function BuffTiers() {
             <div
               key={b.id}
               style={{
-                background: C.panel,
-                border: `1px solid ${C.border}`,
+                background: "var(--panel)",
+                border: "1px solid #1f1f1f",
                 borderRadius: 4,
                 overflow: "hidden",
               }}
@@ -771,7 +791,7 @@ function BuffTiers() {
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: tm.color,
-                    fontFamily: "inherit",
+                    fontFamily: "var(--mono)",
                     marginBottom: 6,
                   }}
                 >
@@ -787,7 +807,7 @@ function BuffTiers() {
                 >
                   {b.name}
                 </div>
-                <div style={{ fontSize: 11, color: C.dim, lineHeight: 1.5 }}>
+                <div style={{ fontSize: 11, color: "var(--text-dim)", lineHeight: 1.5 }}>
                   {b.effect}
                 </div>
               </div>
@@ -825,7 +845,7 @@ function TaxAndEvents() {
           ? "#22c55e"
           : e.type === "bad"
             ? "#ef4444"
-            : C.orange,
+            : "var(--gold)",
     }));
   return (
     <section
@@ -844,8 +864,8 @@ function TaxAndEvents() {
             fontWeight: 700,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: C.orange,
-            fontFamily: "inherit",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
             marginBottom: 10,
           }}
         >
@@ -873,8 +893,8 @@ function TaxAndEvents() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
               padding: "8px 16px",
-              background: C.bg2,
-              borderBottom: `1px solid ${C.borderSoft}`,
+              background: "var(--bg-2)",
+              borderBottom: "1px solid var(--border-soft)",
             }}
           >
             {["Vòng đấu", "Thuế suất", "Trạng thái"].map((h) => (
@@ -882,10 +902,10 @@ function TaxAndEvents() {
                 key={h}
                 style={{
                   fontSize: 9,
-                  color: C.faint,
+                  color: "var(--text-faint)",
                   textTransform: "uppercase",
                   letterSpacing: 0.4,
-                  fontFamily: "inherit",
+                  fontFamily: "var(--mono)",
                 }}
               >
                 {h}
@@ -906,8 +926,8 @@ function TaxAndEvents() {
               <span
                 style={{
                   fontSize: 12,
-                  fontFamily: "inherit",
-                  color: C.light,
+                  fontFamily: "var(--mono)",
+                  color: "var(--text-dim)",
                 }}
               >
                 {b.rounds}
@@ -917,12 +937,12 @@ function TaxAndEvents() {
                   fontSize: 13,
                   fontWeight: 700,
                   color: b.color,
-                  fontFamily: "inherit",
+                  fontFamily: "var(--mono)",
                 }}
               >
                 {b.rate}
               </span>
-              <span style={{ fontSize: 11, color: C.dim }}>{b.label}</span>
+              <span style={{ fontSize: 11, color: "var(--text-dim)" }}>{b.label}</span>
             </div>
           ))}
         </div>
@@ -930,8 +950,8 @@ function TaxAndEvents() {
           style={{
             marginTop: 12,
             fontSize: 9,
-            color: C.faint,
-            fontFamily: "inherit",
+            color: "var(--text-faint)",
+            fontFamily: "var(--mono)",
             letterSpacing: 1,
           }}
         >
@@ -946,8 +966,8 @@ function TaxAndEvents() {
             fontWeight: 700,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            color: C.orange,
-            fontFamily: "inherit",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
             marginBottom: 10,
           }}
         >
@@ -965,8 +985,8 @@ function TaxAndEvents() {
         </div>
         <div
           style={{
-            background: C.panel,
-            border: `1px solid ${C.border}`,
+            background: "var(--panel)",
+            border: "1px solid #1f1f1f",
             borderRadius: 4,
             padding: "20px 20px",
           }}
@@ -984,14 +1004,14 @@ function TaxAndEvents() {
                 width: 6,
                 height: 6,
                 borderRadius: 1,
-                background: C.orange,
+                background: "var(--gold)",
               }}
             />
             <span
               style={{
                 fontSize: 10,
-                fontFamily: "inherit",
-                color: C.dim,
+                fontFamily: "var(--mono)",
+                color: "var(--text-dim)",
                 letterSpacing: 1,
               }}
             >
@@ -1010,14 +1030,14 @@ function TaxAndEvents() {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ fontSize: 18 }}>{ev.icon}</span>
-                <span style={{ fontSize: 13, color: C.light }}>{ev.title}</span>
+                <span style={{ fontSize: 13, color: "var(--text-dim)" }}>{ev.title}</span>
               </div>
               <span
                 style={{
                   fontSize: 11,
                   fontWeight: 700,
                   color: ev.color,
-                  fontFamily: "inherit",
+                  fontFamily: "var(--mono)",
                 }}
               >
                 {ev.badge}
@@ -1044,8 +1064,8 @@ function WinConditions() {
           fontWeight: 700,
           letterSpacing: 0.5,
           textTransform: "uppercase",
-          color: C.orange,
-          fontFamily: "inherit",
+          color: "var(--gold)",
+          fontFamily: "var(--mono)",
           marginBottom: 10,
         }}
       >
@@ -1070,8 +1090,8 @@ function WinConditions() {
       >
         <div
           style={{
-            background: C.panel,
-            border: `1px solid ${C.border}`,
+            background: "var(--panel)",
+            border: "1px solid #1f1f1f",
             borderRadius: 4,
             padding: "28px 28px",
           }}
@@ -1082,8 +1102,8 @@ function WinConditions() {
               fontWeight: 700,
               letterSpacing: 0.5,
               textTransform: "uppercase",
-              color: C.dim,
-              fontFamily: "inherit",
+              color: "var(--text-dim)",
+              fontFamily: "var(--mono)",
               marginBottom: 12,
             }}
           >
@@ -1099,15 +1119,15 @@ function WinConditions() {
           >
             Thống Trị Tài Sản
           </div>
-          <p style={{ fontSize: 13, color: C.dim, lineHeight: 1.65 }}>
+          <p style={{ fontSize: 13, color: "var(--text-dim)", lineHeight: 1.65 }}>
             Có tổng giá trị tài sản — tiền mặt cộng giá trị cổ phần theo giá
             cuối vòng {TOTAL_ROUNDS} — lớn nhất so với các tập đoàn còn lại.
           </p>
         </div>
         <div
           style={{
-            background: C.panel,
-            border: `1px solid ${C.border}`,
+            background: "var(--panel)",
+            border: "1px solid #1f1f1f",
             borderRadius: 4,
             padding: "28px 28px",
           }}
@@ -1119,7 +1139,7 @@ function WinConditions() {
               letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "#ef4444",
-              fontFamily: "inherit",
+              fontFamily: "var(--mono)",
               marginBottom: 12,
             }}
           >
@@ -1135,7 +1155,7 @@ function WinConditions() {
           >
             Thâu Tóm Độc Quyền
           </div>
-          <p style={{ fontSize: 13, color: C.dim, lineHeight: 1.65 }}>
+          <p style={{ fontSize: 13, color: "var(--text-dim)", lineHeight: 1.65 }}>
             Sở hữu ≥ {EARLY_WIN_SHARES} cổ phần ({EARLY_WIN_SHARES}/
             {TOTAL_SHARES}) của bất kỳ một công ty nào để tuyên bố thâu tóm và
             thắng ngay lập tức, bất kể đang ở vòng nào.
@@ -1166,15 +1186,15 @@ function CTA({ onStart }) {
           marginBottom: 20,
         }}
       >
-        <span style={{ color: C.text }}>Bạn Sẽ Là </span>
-        <span style={{ color: C.orange }}>Tập Đoàn</span>
+        <span style={{ color: "var(--text)" }}>Bạn Sẽ Là </span>
+        <span style={{ color: "var(--gold)" }}>Tập Đoàn</span>
         <br />
-        <span style={{ color: C.text }}>Nào Còn Đứng Vững?</span>
+        <span style={{ color: "var(--text)" }}>Nào Còn Đứng Vững?</span>
       </h2>
       <p
         style={{
           fontSize: 14,
-          color: C.dim,
+          color: "var(--text-dim)",
           marginBottom: 36,
           lineHeight: 1.7,
         }}
@@ -1183,6 +1203,222 @@ function CTA({ onStart }) {
         <br />
         cuộc chiến giành thị phần ngay bây giờ.
       </p>
+    </section>
+  );
+}
+
+/* ── AI Annotation ───────────────────────────────────── */
+const aiTools = [
+  {
+    name: "Claude Code",
+    img: "/claude-ai-icon.webp",
+    desc: "Claude Code là một công cụ lập trình thông minh, có khả năng đọc mã nguồn, chỉnh sửa tệp, chạy lệnh và tích hợp với các công cụ phát triển của bạn. Có sẵn trên terminal, IDE, ứng dụng máy tính để bàn và trình duyệt.",
+    desc2: "Claude Code là trợ lý lập trình được hỗ trợ bởi trí tuệ nhân tạo, giúp bạn xây dựng tính năng, sửa lỗi và tự động hóa các tác vụ phát triển. Nó hiểu toàn bộ mã nguồn của bạn và có thể làm việc trên nhiều tệp và công cụ để hoàn thành công việc.",
+    accent: "#d97706",
+  },
+  {
+    name: "Gemini",
+    img: "/gemini.webp",
+    desc: "Gemini AI là trợ lý trí tuệ nhân tạo đa phương thức thế hệ mới của Google, sở hữu cửa sổ ngữ cảnh cực lớn giúp thấu hiểu toàn bộ kiến trúc mã nguồn phức tạp và dữ liệu hệ thống của bạn.",
+    desc2: "Không chỉ dừng lại ở một công cụ lập trình thông minh có khả năng viết code, sửa lỗi và thiết kế hệ thống, Gemini còn là một trợ lý toàn năng tích hợp sâu vào hệ sinh thái công cụ (từ IDE, terminal đến đám mây) và các ứng dụng hàng ngày, giúp bạn tự động hóa quy trình làm việc, phân tích dữ liệu đa phương tiện và tối ưu hóa hiệu suất toàn diện.",
+    accent: "#4285f4",
+  },
+  {
+    name: "Antigravity",
+    img: "/google-antigravity.jpg",
+    desc: "Google Antigravity là một nền tảng phát triển phần mềm dựa trên tác nhân và môi trường phát triển tích hợp (IDE).",
+    desc2: "Nó cho phép các nhà phát triển triển khai các tác nhân AI tự động để lập kế hoạch, viết, kiểm thử và gỡ lỗi các dự án lập trình phức tạp trên nhiều trình soạn thảo, thiết bị đầu cuối và trình duyệt.",
+    accent: "#22c55e",
+  },
+];
+
+function AIAnnotation() {
+  const mobile = useIsMobile();
+  return (
+    <section
+      id="chu-thich-ai"
+      style={{
+        padding: mobile ? "48px 16px" : "72px 48px",
+        borderTop: "1px solid #111",
+      }}
+    >
+      {/* Section header */}
+      <div style={{ marginBottom: 40 }}>
+        <div
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            fontFamily: "var(--mono)",
+            marginBottom: 10,
+          }}
+        >
+          — Chú thích AI
+        </div>
+        <div style={{ height: 1, background: "var(--border)" }} />
+        <h2
+          style={{
+            fontSize: "clamp(22px, 3vw, 32px)",
+            fontWeight: 800,
+            textTransform: "uppercase",
+            marginTop: 18,
+            marginBottom: 6,
+            lineHeight: 1.15,
+          }}
+        >
+          Được xây dựng với sự hỗ trợ của{" "}
+          <span style={{ color: "var(--gold)" }}>AI</span>
+        </h2>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--text-dim)",
+            lineHeight: 1.7,
+            maxWidth: 560,
+          }}
+        >
+          Dự án này được phát triển với sự hỗ trợ của các công cụ AI hiện đại
+          dưới đây.
+        </p>
+        <div
+          style={{
+            marginTop: 16,
+            padding: "14px 18px",
+            background: "rgba(234,179,8,0.06)",
+            borderLeft: "3px solid var(--gold)",
+            borderRadius: "0 4px 4px 0",
+            maxWidth: 620,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 12,
+              color: "var(--gold)",
+              lineHeight: 1.75,
+              margin: 0,
+              fontWeight: 600,
+            }}
+          >
+            ⚠️ Nhóm chỉ sử dụng công cụ AI cho mục đích hỗ trợ code giao diện,
+            tổng hợp lí thuyết. Mọi kiến thức, tài liệu đều được trích dẫn và
+            kiểm chứng từ nguồn chính thống.
+          </p>
+        </div>
+      </div>
+
+      {/* 3-column grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)",
+          gap: 18,
+        }}
+      >
+        {aiTools.map((tool) => (
+          <div
+            key={tool.name}
+            style={{
+              background: "var(--panel)",
+              border: "1px solid #1f1f1f",
+              borderRadius: 6,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              transition: "border-color .25s, box-shadow .25s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = tool.accent;
+              e.currentTarget.style.boxShadow = `0 0 20px ${tool.accent}22`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "#1f1f1f";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            {/* Image */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "16 / 9",
+                overflow: "hidden",
+                background: "#0d0e11",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={tool.img}
+                alt={tool.name}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  padding: 20,
+                }}
+              />
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: "18px 20px 22px", flex: 1 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 12,
+                }}
+              >
+                <span
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: tool.accent,
+                    display: "inline-block",
+                    boxShadow: `0 0 6px ${tool.accent}88`,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: 0.4,
+                    textTransform: "uppercase",
+                    color: tool.accent,
+                    fontFamily: "var(--mono)",
+                  }}
+                >
+                  {tool.name}
+                </span>
+              </div>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-dim)",
+                  lineHeight: 1.7,
+                  marginBottom: 10,
+                }}
+              >
+                {tool.desc}
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-faint)",
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                {tool.desc2}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
@@ -1205,11 +1441,12 @@ function Footer() {
       <span
         style={{
           fontSize: 10,
-          color: C.faint,
-          fontFamily: "inherit",
+          color: "var(--text-faint)",
+          fontFamily: "var(--mono)",
           letterSpacing: 1,
         }}
       >
+        © 2026 Đế Chế Kinh Tế · Board game chiến thuật kinh tế
         © 2026 Đế Chế Kinh Tế · Board game chiến thuật kinh tế
       </span>
       <div style={{ display: "flex", gap: 24 }}>
@@ -1220,9 +1457,9 @@ function Footer() {
             onClick={(e) => e.preventDefault()}
             style={{
               fontSize: 10,
-              color: C.faint,
+              color: "var(--text-faint)",
               textDecoration: "none",
-              fontFamily: "inherit",
+              fontFamily: "var(--mono)",
               letterSpacing: 1,
               textTransform: "uppercase",
             }}
@@ -1237,12 +1474,14 @@ function Footer() {
 
 /* ── Main export ─────────────────────────────────────── */
 export default function HomePage({ onStart }) {
+  const [showVerify, setShowVerify] = useState(false);
+
   return (
-    <div style={{ background: C.bg, minHeight: "100vh", color: C.text }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh", color: "var(--text)" }}>
       <Ticker />
-      <Nav onStart={onStart} />
-      <Hero onStart={onStart} />
-      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
+      <Nav onStart={() => setShowVerify(true)} />
+      <Hero onStart={() => setShowVerify(true)} />
+      <div style={{ borderTop: "1px solid #111" }} />
       <Companies />
       <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <GameFlow />
@@ -1252,8 +1491,18 @@ export default function HomePage({ onStart }) {
       <TaxAndEvents />
       <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <WinConditions />
-      <CTA onStart={onStart} />
+      <CTA onStart={() => setShowVerify(true)} />
+      <AIAnnotation />
       <Footer />
+      {showVerify && (
+        <VerifyCard
+          onClose={() => setShowVerify(false)}
+          onSuccess={() => {
+            setShowVerify(false);
+            onStart();
+          }}
+        />
+      )}
     </div>
   );
 }
