@@ -730,7 +730,7 @@ function BuffTiers() {
             textAlign: "right",
           }}
         >
-          GIÁ TĂNG DẦN: 2 → 7B / GÓI · 3 GÓI / VÒNG
+          GIÁ TĂNG DẦN: 2 → 9B / GÓI · 3 GÓI / VÒNG
         </div>
       </div>
       <div
