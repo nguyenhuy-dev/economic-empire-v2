@@ -12,7 +12,7 @@ export default function CapTable() {
   return (
     <section className="panel panel-pad">
       <div className="section-head">
-        <span className="section-icon">🧾</span>
+        <span className="section-icon" style={{ marginRight: '6px' }}>🧾</span>
         <h2>Cơ cấu sở hữu cổ phần</h2>
         <span className="tag">Ai giữ cp nào</span>
       </div>
