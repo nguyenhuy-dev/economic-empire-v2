@@ -97,7 +97,7 @@ export default function CapTable() {
                           display: 'inline-block',
                         }}
                       />
-                      {o.team.logo} {o.team.name.replace('Tập đoàn ', '')}: <strong>{o.qty}</strong> cp
+                      {o.team.logo} {o.team.name}: <strong>{o.qty}</strong> cp
                       {o.qty >= threshold && (
                         <span style={{ color: 'var(--gold)', fontWeight: 700 }}>👑</span>
                       )}

@@ -1,8 +1,15 @@
-// Buff / Thẻ quyền lực — 4 tier. Giá gói TĂNG DẦN theo round.
-export const BUFF_BASE_PRICE = 3 // giá ở round 1
-export const BUFF_PRICE_STEP = 2 // mỗi round tăng thêm
-export function buffPrice(round: number): number {
-  return BUFF_BASE_PRICE + Math.max(0, round - 1) * BUFF_PRICE_STEP
+// Buff / Thẻ quyền lực — 4 tier. Giá gói TĂNG DẦN nhưng CHẬM DẦN theo round:
+// mức cộng mỗi round giảm dần (bắt đầu +2, các round sau chỉ +1, tối thiểu +1).
+// Thẻ ĐỎ (legendary) luôn đắt hơn 1B so với các thẻ khác.
+export const BUFF_BASE_RED = 3 // thẻ đỏ (legendary) — giá round 1
+export const BUFF_BASE_OTHER = 2 // các thẻ khác — giá round 1
+export const BUFF_PRICE_STEP = 2 // mức tăng ban đầu (round 2), rồi giảm dần
+export function buffPrice(round: number, isRed = false): number {
+  let price = isRed ? BUFF_BASE_RED : BUFF_BASE_OTHER
+  for (let r = 2; r <= round; r++) {
+    price += Math.max(1, BUFF_PRICE_STEP - (r - 2)) // r2:+2, r3:+1, r4:+1, ...
+  }
+  return price
 }
 
 export const tierMeta = {

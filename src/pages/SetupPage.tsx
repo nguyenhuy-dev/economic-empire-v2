@@ -90,7 +90,7 @@ export default function SetupPage({
               className="cb-team on"
               style={{ '--tc': t.color, cursor: 'default' } as React.CSSProperties}
             >
-              {t.logo} {t.name.replace('Tập đoàn ', '')}
+              {t.logo} {t.name}
             </span>
           ))}
         </div>
