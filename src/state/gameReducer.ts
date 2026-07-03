@@ -316,7 +316,7 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       const counter = state.perRound[team.id]
       const buff    = buffById[action.buffId]
       if (team.bankrupt || counter.buffBought || !buff) return prev
-      const price = buffPrice(state.round)
+      const price = buffPrice(state.round, buff.tier === 'legendary')
       if (team.cash < price) return prev
       team.cash = round1(team.cash - price)
       counter.buffBought = true

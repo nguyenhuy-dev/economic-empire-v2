@@ -66,7 +66,7 @@ export default function ControlBar({ onSetup }: { onSetup?: () => void }) {
               disabled={t.bankrupt}
               onClick={() => dispatch({ type: 'SET_ACTIVE_TEAM', teamId: t.id })}
             >
-              {t.logo} {t.name.replace('Tập đoàn ', '')}
+              {t.logo} {t.name}
             </button>
           ))}
         </div>
@@ -101,7 +101,7 @@ function TeamStats({ state, teamId }) {
     <div className="cb-section cb-status">
       <div className="cb-stat" style={{ borderLeft: `3px solid ${team.color}`, paddingLeft: 8 }}>
         <div className="v">{team.logo}</div>
-        <div className="l">{team.name.replace('Tập đoàn ', '')}</div>
+        <div className="l">{team.name}</div>
       </div>
       <Stat label="Tiền mặt" value={fmt(team.cash)} />
       <Stat label="Tài sản" value={fmt(totalAssets(team, state.companies))} accent />
