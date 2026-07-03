@@ -29,25 +29,16 @@ export const quizQuestions = {
       answer: 0,
     },
     {
-      q: 'Cuộc khủng hoảng nào đã làm phá sản doanh nghiệp vừa và nhỏ, các doanh nghiệp lớn còn tồn tại dẫn tới hình thành các doanh nghiệp độc quyền đầu tiên?',
+      q: 'Mục đích chủ yếu của các tập đoàn độc quyền dạng đa ngành (Conglomerate) ngày nay là thu lợi nhuận từ đâu?',
       options: [
-        'Khủng hoảng kinh tế năm 1825',
-        'Khủng hoảng kinh tế năm 1873',
-        'Khủng hoảng kinh tế năm 1929 - 1933',
-        'Khủng hoảng kinh tế năm 2008',
+        'Duy nhất từ kinh doanh nông nghiệp công nghệ cao',
+        'Từ việc đầu cơ tài chính, chứng khoán và kinh doanh đa ngành nhằm giảm rủi ro cạnh tranh',
+        'Từ các khoản viện trợ không hoàn lại của các tổ chức quốc tế',
+        'Từ việc độc quyền mua bán một loại nông sản duy nhất',
       ],
       answer: 1,
     },
-    {
-      q: 'Chủ nghĩa tư bản độc quyền nhà nước hình thành rõ nét từ thời gian nào?',
-      options: [
-        'Đầu thế kỷ XIX',
-        'Cuối thế kỷ XIX',
-        'Giữa thế kỷ XX',
-        'Đầu thế kỷ XXI',
-      ],
-      answer: 2,
-    },
+
     {
       q: 'Sự phát triển của tư bản tài chính dẫn đến sự hình thành của tầng lớp nào?',
       options: [
@@ -90,6 +81,16 @@ export const quizQuestions = {
         'Cartel - Trust - Syndicate - Consortium',
       ],
       answer: 1,
+    },
+    {
+      q: 'Chủ nghĩa tư bản độc quyền nhà nước hình thành rõ nét từ thời gian nào?',
+      options: [
+        'Đầu thế kỷ XIX',
+        'Cuối thế kỷ XIX',
+        'Giữa thế kỷ XX',
+        'Đầu thế kỷ XXI',
+      ],
+      answer: 2,
     },
     {
       q: 'Các hình thức độc quyền nào sau đây được coi là thấp nhất (lỏng lẻo nhất) về mặt liên minh?',
@@ -214,16 +215,7 @@ export const quizQuestions = {
       ],
       answer: 1,
     },
-    {
-      q: 'Mục đích chủ yếu của các tập đoàn độc quyền dạng đa ngành (Conglomerate) ngày nay là thu lợi nhuận từ đâu?',
-      options: [
-        'Duy nhất từ kinh doanh nông nghiệp công nghệ cao',
-        'Từ việc đầu cơ tài chính, chứng khoán và kinh doanh đa ngành nhằm giảm rủi ro cạnh tranh',
-        'Từ các khoản viện trợ không hoàn lại của các tổ chức quốc tế',
-        'Từ việc độc quyền mua bán một loại nông sản duy nhất',
-      ],
-      answer: 1,
-    },
+
     {
       q: 'Trong chủ nghĩa tư bản ngày nay, các trùm tài chính thống trị nền kinh tế chủ yếu thông qua hình thức tinh vi nào?',
       options: [
@@ -294,5 +286,15 @@ export const quizQuestions = {
       ],
       answer: 1,
     },
+    {
+      q: 'Cuộc khủng hoảng nào đã làm phá sản doanh nghiệp vừa và nhỏ, các doanh nghiệp lớn còn tồn tại dẫn tới hình thành các doanh nghiệp độc quyền đầu tiên?',
+      options: [
+        'Khủng hoảng kinh tế năm 1825',
+        'Khủng hoảng kinh tế năm 1873',
+        'Khủng hoảng kinh tế năm 1929 - 1933',
+        'Khủng hoảng kinh tế năm 2008',
+      ],
+      answer: 1,
+    }
   ],
 }
