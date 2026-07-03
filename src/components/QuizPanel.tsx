@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { difficulties, quizQuestions } from '../data/quiz'
 import { fmt } from '../utils/calc'
 import { useGame } from '../state/GameContext'
@@ -16,22 +16,48 @@ export default function QuizPanel() {
     setRevealed(false)
   }, [viewTeamId, state.round])
 
+  const [randomIdx, setRandomIdx] = useState(0)
+
+  // Track state.askedQuestions via ref to prevent useEffect from re-triggering mid-turn
+  const askedRef = useRef(state.askedQuestions)
+  useEffect(() => {
+    askedRef.current = state.askedQuestions
+  }, [state.askedQuestions])
+
+  useEffect(() => {
+    const list = quizQuestions[diff] || []
+    if (list.length === 0) {
+      setRandomIdx(0)
+      return
+    }
+    const asked = askedRef.current?.[diff] || []
+    const available = []
+    for (let i = 0; i < list.length; i++) {
+      if (!asked.includes(i)) {
+        available.push(i)
+      }
+    }
+    const pool = available.length > 0 ? available : list.map((_, i) => i)
+    const idx = pool[Math.floor(Math.random() * pool.length)]
+    setRandomIdx(idx)
+  }, [diff, viewTeamId, state.round])
+
   if (!active) return <section className="panel panel-pad"><p className="muted">Bạn chưa có đội.</p></section>
   const counter = state.perRound[viewTeamId]
   const locked = counter.quizDone || active.bankrupt || state.gameOver
 
   const meta = difficulties.find((d) => d.id === diff)
-  const randomIdx = useMemo(() => Math.floor(Math.random() * 4), [diff, viewTeamId, state.round])
   const question = quizQuestions[diff][randomIdx]
   const failReward = meta.failReward
 
   function pick(i) {
-    if (locked || picked !== null) return
+    if (locked || picked !== null || !question) return
     setPicked(i)
     dispatch({
       type: 'ANSWER_QUIZ',
       difficulty: diff,
       correct: i === question.answer,
+      questionIdx: randomIdx,
     })
   }
 
