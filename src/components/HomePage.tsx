@@ -24,6 +24,21 @@ function useIsMobile(breakpoint = 768) {
   return mobile;
 }
 
+/* ── Bảng màu trang giới thiệu: đen ánh (charcoal ấm) + accent cam ── */
+const C = {
+  bg: "#16181d", // nền trang
+  bg2: "#1e2128", // dải/nền phụ
+  panel: "#1c1f26", // thẻ
+  border: "#2f343e", // viền rõ
+  borderSoft: "#262a32", // đường kẻ mảnh
+  orange: "#ff8a3d", // accent cam
+  text: "#edeef2", // chữ chính
+  light: "#c7ccd4", // chữ sáng
+  dim: "#9aa0ab", // chữ mờ
+  faint: "#6b7280", // chữ rất mờ
+  navBg: "rgba(22,24,29,0.82)",
+};
+
 /* ── Ticker ──────────────────────────────────────────── */
 function Ticker() {
   const items = companies.map((c) => {
@@ -57,7 +72,7 @@ function Nav({ onStart }) {
         alignItems: "center",
         gap: mobile ? 16 : 32,
         height: 56,
-        borderBottom: "1px solid #1f1f1f",
+        borderBottom: `1px solid ${C.border}`,
         padding: mobile ? "0 16px" : "0 48px",
         position: "sticky",
         top: 0,
@@ -80,6 +95,7 @@ function Nav({ onStart }) {
           style={{
             fontWeight: 700,
             fontSize: 15,
+            letterSpacing: 0.5,
             letterSpacing: 0.5,
             textTransform: "uppercase",
           }}
@@ -108,6 +124,7 @@ function Nav({ onStart }) {
             style={{
               fontSize: 11,
               fontWeight: 600,
+              letterSpacing: 0.4,
               letterSpacing: 0.4,
               textTransform: "uppercase",
               color: "var(--text-dim)",
@@ -230,6 +247,7 @@ function Hero({ onStart }) {
                 borderRadius: "50%",
                 background: "#22c55e",
                 boxShadow: "none",
+                boxShadow: "none",
               }}
             />
             Trạng thái: Sẵn sàng
@@ -259,6 +277,7 @@ function Hero({ onStart }) {
               fontSize: 10,
               fontWeight: 700,
               letterSpacing: 0.5,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--text-faint)",
               fontFamily: "var(--mono)",
@@ -274,6 +293,7 @@ function Hero({ onStart }) {
               letterSpacing: 1,
             }}
           >
+Thuế suất
 Thuế suất
           </span>
         </div>
@@ -352,6 +372,7 @@ function Companies() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -397,6 +418,7 @@ function Companies() {
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
+                    letterSpacing: 0.5,
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: c.color,
@@ -547,6 +569,7 @@ function GameFlow() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -687,6 +710,7 @@ function BuffTiers() {
               fontSize: 10,
               fontWeight: 700,
               letterSpacing: 0.5,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--gold)",
               fontFamily: "var(--mono)",
@@ -764,6 +788,7 @@ function BuffTiers() {
                     background: tm.color,
                     transform: "rotate(45deg)",
                     boxShadow: `0 0 10px ${tm.glow}`,
+                    boxShadow: `0 0 10px ${tm.glow}`,
                   }}
                 />
               </div>
@@ -772,6 +797,7 @@ function BuffTiers() {
                   style={{
                     fontSize: 9,
                     fontWeight: 700,
+                    letterSpacing: 0.5,
                     letterSpacing: 0.5,
                     textTransform: "uppercase",
                     color: tm.color,
@@ -847,6 +873,7 @@ function TaxAndEvents() {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: 0.5,
+            letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
             fontFamily: "var(--mono)",
@@ -867,7 +894,7 @@ function TaxAndEvents() {
         </div>
         <div
           style={{
-            border: "1px solid #1f1f1f",
+            border: `1px solid ${C.border}`,
             borderRadius: 4,
             overflow: "hidden",
           }}
@@ -904,7 +931,7 @@ function TaxAndEvents() {
                 gridTemplateColumns: "1fr 1fr 1fr",
                 padding: "14px 16px",
                 borderBottom:
-                  i < taxBands.length - 1 ? "1px solid #141414" : "none",
+                  i < taxBands.length - 1 ? `1px solid ${C.borderSoft}` : "none",
               }}
             >
               <span
@@ -948,6 +975,7 @@ function TaxAndEvents() {
           style={{
             fontSize: 10,
             fontWeight: 700,
+            letterSpacing: 0.5,
             letterSpacing: 0.5,
             textTransform: "uppercase",
             color: "var(--gold)",
@@ -1047,6 +1075,7 @@ function WinConditions() {
           fontSize: 10,
           fontWeight: 700,
           letterSpacing: 0.5,
+          letterSpacing: 0.5,
           textTransform: "uppercase",
           color: "var(--gold)",
           fontFamily: "var(--mono)",
@@ -1085,6 +1114,7 @@ function WinConditions() {
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: 0.5,
+              letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "var(--text-dim)",
               fontFamily: "var(--mono)",
@@ -1120,6 +1150,7 @@ function WinConditions() {
             style={{
               fontSize: 9,
               fontWeight: 700,
+              letterSpacing: 0.5,
               letterSpacing: 0.5,
               textTransform: "uppercase",
               color: "#ef4444",
@@ -1158,7 +1189,7 @@ function CTA({ onStart }) {
       style={{
         padding: mobile ? "56px 16px 64px" : "80px 48px 100px",
         textAlign: "center",
-        borderTop: "1px solid #111",
+        borderTop: `1px solid ${C.borderSoft}`,
       }}
     >
       <h2
@@ -1413,7 +1444,7 @@ function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid #111",
+        borderTop: `1px solid ${C.borderSoft}`,
         padding: mobile ? "16px 16px" : "20px 48px",
         display: "flex",
         alignItems: "center",
@@ -1430,6 +1461,7 @@ function Footer() {
           letterSpacing: 1,
         }}
       >
+        © 2026 Đế Chế Kinh Tế · Board game chiến thuật kinh tế
         © 2026 Đế Chế Kinh Tế · Board game chiến thuật kinh tế
       </span>
       <div style={{ display: "flex", gap: 24 }}>
@@ -1466,13 +1498,13 @@ export default function HomePage({ onStart }) {
       <Hero onStart={() => setShowVerify(true)} />
       <div style={{ borderTop: "1px solid #111" }} />
       <Companies />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <GameFlow />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <BuffTiers />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <TaxAndEvents />
-      <div style={{ borderTop: "1px solid #111" }} />
+      <div style={{ borderTop: `1px solid ${C.borderSoft}` }} />
       <WinConditions />
       <CTA onStart={() => setShowVerify(true)} />
       <AIAnnotation />
