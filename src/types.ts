@@ -102,6 +102,7 @@ export interface GameState {
   winner: TeamId | null
   winReason: string | null
   gameOver: boolean
+  askedQuestions: Record<string, number[]>
 }
 
 // ===================== Reducer actions =====================
@@ -111,7 +112,7 @@ export type GameAction =
   | { type: 'SET_ACTIVE_TEAM'; teamId: TeamId }
   | { type: 'NEXT_TURN' }
   | { type: 'TOGGLE_PAUSE' }
-  | { type: 'ANSWER_QUIZ'; difficulty: string; correct: boolean; teamId?: TeamId }
+  | { type: 'ANSWER_QUIZ'; difficulty: string; correct: boolean; questionIdx?: number; teamId?: TeamId }
   | { type: 'BUY_SHARE'; companyId: CompanyId; teamId?: TeamId }
   | { type: 'SELL_SHARE'; companyId: CompanyId; teamId?: TeamId }
   | { type: 'BUY_BUFF'; buffId: string; teamId?: TeamId }

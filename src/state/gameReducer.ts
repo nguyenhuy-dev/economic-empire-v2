@@ -56,6 +56,7 @@ export function makeInitialState(numTeams = 4): GameState {
     winner: null,
     winReason: null,
     gameOver: false,
+    askedQuestions: { easy: [], medium: [], hard: [] },
   }
 }
 
@@ -271,6 +272,20 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       const reward = action.correct ? d.reward : d.failReward
       team.cash    = round1(team.cash + reward)
       counter.quizDone = true
+
+      // Register the question as asked
+      if (!state.askedQuestions) {
+        state.askedQuestions = { easy: [], medium: [], hard: [] }
+      }
+      if (action.questionIdx !== undefined && action.questionIdx !== null) {
+        if (!state.askedQuestions[action.difficulty]) {
+          state.askedQuestions[action.difficulty] = []
+        }
+        if (!state.askedQuestions[action.difficulty].includes(action.questionIdx)) {
+          state.askedQuestions[action.difficulty].push(action.questionIdx)
+        }
+      }
+
       pushLog(state, 'quiz', `🎯 ${team.name} trả lời ${action.correct ? 'ĐÚNG' : 'SAI'} (${d.label}) → +${reward}B.`)
       return state
     }
@@ -316,7 +331,7 @@ export function gameReducer(prev: GameState, action: GameAction): GameState {
       const counter = state.perRound[team.id]
       const buff    = buffById[action.buffId]
       if (team.bankrupt || counter.buffBought || !buff) return prev
-      const price = buffPrice(state.round)
+      const price = buffPrice(state.round, buff.tier === 'legendary')
       if (team.cash < price) return prev
       team.cash = round1(team.cash - price)
       counter.buffBought = true
